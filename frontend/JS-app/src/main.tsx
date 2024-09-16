@@ -1,0 +1,64 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import './index.css'
+import Home from "./pages/Home";
+import Adds from "./pages/Adds";
+import Login from "./pages/Login";
+import MyAdds from "./pages/MyAdds";
+import NewAdd from "./pages/NewAdd";
+import Subscriptions from "./pages/Subcriptions";
+import { Auth0Provider } from '@auth0/auth0-react';
+import Ad from "./pages/Ad";
+
+
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/ads",
+    element: <Adds/>,
+  },
+  {
+    path: "/ads/:id",
+    element: <Ad/>,
+  },
+  {
+    path: "/login",
+    element: <Login/>,
+  },
+  {
+    path: "/myads",
+    element: <MyAdds/>,
+  },
+  {
+    path: "/newad",
+    element: <NewAdd/>,
+  },
+  
+  {
+    path: "/subscription",
+    element: <Subscriptions/>,
+  },
+  
+]);
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+       <Auth0Provider
+        domain="dev-750v23phcwvolq52.us.auth0.com"
+        clientId="1KJEmXaQwWpBo9yl6r0pNY379JsVDsc3"
+        authorizationParams={{
+           audience: 'https://dev-750v23phcwvolq52.us.auth0.com/api/v2/',
+          redirect_uri: "http://localhost:5173/"
+        }}
+        cacheLocation="localstorage" 
+  >
+      <RouterProvider router={router} />
+      </Auth0Provider>
+  </React.StrictMode>
+);
+
