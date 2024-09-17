@@ -10,28 +10,33 @@ export default function HeadLayout() {
     <>
     
     <header>
-        <nav>
+        
+        {isAuthenticated ? (
+            <nav>
             <ul>
+
                 <li><Link to='/'>Home</Link></li>
-                <li><Link to='/ads'>Adds</Link></li>
-                <li><Link to='/subscription'>Subsription</Link></li>
-                <li><Link to='/newad'>New Add</Link></li>
-                <li><Link to='/myads'>My Adds</Link></li>
-                <div>
-                {isAuthenticated ? (
+                <li><Link to='/ads'>Ads</Link></li>
+                <li><Link to='/subscription'>Subscription</Link></li>
+                <li><Link to='/newad'>New Ad</Link></li>
+                <li><Link to='/myads'>My Ads</Link></li>
+                </ul>
+                
+                
                 <button onClick={() => logout({ returnTo: window.location.origin })}>
                 Logga ut
                 </button>
+                </nav>
                 ) : (
                  <button onClick={() => loginWithRedirect()}>Logga in</button>
                     )}
-                    </div>
+                    
       
     
                 
                 
-            </ul>
-        </nav>
+            
+        
     </header>
     </>
   )

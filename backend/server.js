@@ -50,7 +50,7 @@ const checkJwt = jwt({
   });
   app.get('/ads/:id', (req, res) => {
     const adId = req.params.id;
-    const sql = 'SELECT * FROM Annons WHERE _id = ?';
+    const sql = `SELECT * FROM Annons WHERE id = ?;`;
     db.query(sql, [adId], (error, result) => {
       if (error) {
         return res.status(500).send('Error retrieving ad details');
