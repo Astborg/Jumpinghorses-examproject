@@ -10,6 +10,7 @@ import NewAdd from "./pages/NewAdd";
 import Subscriptions from "./pages/Subcriptions";
 import { Auth0Provider } from '@auth0/auth0-react';
 import Ad from "./pages/Ad";
+import Success from "./pages/Success";
 
 
 
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
     path: "/subscription",
     element: <Subscriptions/>,
   },
+  {
+    path: "/success",
+    element: <Success/>,
+  },
   
 ]);
 
@@ -53,7 +58,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         clientId="1KJEmXaQwWpBo9yl6r0pNY379JsVDsc3"
         authorizationParams={{
            audience: 'https://dev-750v23phcwvolq52.us.auth0.com/api/v2/',
-          redirect_uri: "http://localhost:5174/"
+          redirect_uri: "http://localhost:5173/"
         }}
         cacheLocation="localstorage" 
   >
