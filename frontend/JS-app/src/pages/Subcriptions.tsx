@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import HeadLayout from '../layout/HeadLayout';
 import { loadStripe } from '@stripe/stripe-js';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const stripePromise = loadStripe('pk_test_51P1AxTEGk7e8lKhxl16I3P0CzdtxMoWc3MiP2atNyjbNcWDgQXhDq5IGyemBYlD12TtpleFG6pHjYSCSfLuVn1fc00wrvt7JSn');
+
 
 export default function Subscriptions() {
   const [selectedPlan, setSelectedPlan] = useState('');
@@ -11,14 +13,16 @@ export default function Subscriptions() {
   const handleSubscriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPlan(e.target.value);
   };
-
+  const { user } = useAuth0();
   const handleSubscribe = async () => {
     const stripe = await stripePromise; 
+    const userEmail = user.email; 
+
     console.log(stripe); 
     try {
       const response = await axios.post('http://localhost:5000/create-checkout-session', {
         priceId: selectedPlan,  // Send the selected plan's Stripe price ID
-        
+        email: userEmail 
       
       });
       console.log(selectedPlan)
