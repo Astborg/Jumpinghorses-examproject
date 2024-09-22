@@ -9,8 +9,13 @@ const stripe = require('stripe')('sk_test_51P1AxTEGk7e8lKhx7d8y2sc3geuObxXKTbjWe
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello from the backend!');
+
+const db = mysql.createPool({
+  host: 'localhost',
+  port: 3307, // Your MySQL host
+  user: 'root',      // Your MySQL username
+  password: 'notSecureChangeMe',  // Your MySQL password
+  database: 'JS', // Your database name
 });
 
 const endpointSecret = 'whsec_9cb9ee33b209dd6195fcf89af36cd06c3f2681f1753b955b85038676c226e49c';
@@ -86,21 +91,35 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), (req, res) =>
     }
     console.log('User role updated to failure successfully');
   });
+} else if (event.type === 'customer.subscription.deleted') {
+  const subscription = event.data.object;
+  const stripeSubscriptionId = subscription.id;
+  const email = subscription.metadata.email; // Om du har sparat e-post som metadata
+  
+  // Uppdatera rollen i databasen till 'failure'
+  const updateUserSql = 'UPDATE Person SET Role = ? WHERE stripe_subscription_id = ?';
+  db.query(updateUserSql, ['failure', stripeSubscriptionId], (err, result) => {
+    if (err) {
+      console.error('Error updating user role in the database:', err.message);
+      return res.status(500).send('Database update failed');
+    }
+    console.log(`User role updated to failure for subscription: ${stripeSubscriptionId}`);
+  });
 }
 
 
-  // Return a response to acknowledge receipt of the event
+  
   res.json({ received: true });
 
-
-// Use body-parser.json() for other routes
-
-// res.status(200).send('Webhook received and processed');
 })
+
 
 app.use(bodyParser.json()); 
 app.use(cors())
 app.use(express.json());
+app.get('/', (req, res) => {
+  res.send('Hello from the backend!');
+});
 // Middleware för att verifiera JWT
 const checkJwt = jwt({
     secret: jwksRsa.expressJwtSecret({
@@ -119,13 +138,7 @@ const checkJwt = jwt({
     res.send('Detta är en skyddad rutt!');
   });
 
-  const db = mysql.createPool({
-    host: 'localhost',
-    port: 3307, // Your MySQL host
-    user: 'root',      // Your MySQL username
-    password: 'notSecureChangeMe',  // Your MySQL password
-    database: 'JS', // Your database name
-  });
+
 
   app.get('/ads', (req, res) => {
     const sql = 'SELECT * FROM Annons';
@@ -136,6 +149,7 @@ const checkJwt = jwt({
       res.json(results);
     });
   });
+
   app.get('/ads/:id', (req, res) => {
     const adId = req.params.id;
     const sql = `SELECT * FROM Annons WHERE _id = ?;`;
@@ -178,11 +192,8 @@ const checkJwt = jwt({
   app.post('/save-user', (req, res) => {
     const { email } = req.body;
     console.log('Received data:', email);
-    
-   
-    
         // Lägg till ny användare i databasen
-        const insertUserSql = 'INSERT INTO Person (Email) VALUES ("test2@example.se")';
+        const insertUserSql = 'INSERT INTO Person (Email) VALUES (?)';
         console.log('Inserting into database:', email);
         db.query(insertUserSql, [email], (err, result) => {
           if (err) {
@@ -193,6 +204,7 @@ const checkJwt = jwt({
         });
       }
     )
+    
 // Route för att få användarens roll baserat på deras email
 app.get('/user-role', (req, res) => {
   const email = req.query.userEmail; // Hämta e-post från query-parametern
@@ -215,37 +227,7 @@ app.get('/user-role', (req, res) => {
     }
   });
 });
-//    // Webhook endpoint to handle Stripe events
-// app.post('/webhook', bodyParser.raw({ type: 'application/json' }), (req, res) => {
-//   const sig = req.headers['stripe-signature'];
-//   let event;
 
-//   try {
-//     event = stripe.webhooks.constructEvent(req.body, sig, 'your-webhook-signing-secret');
-//   } catch (err) {
-//     console.error('Webhook signature verification failed:', err.message);
-//     return res.status(400).send(`Webhook Error: ${err.message}`);
-//   }
-
-//   if (event.type === 'checkout.session.completed') {
-//     const session = event.data.object;
-//     const customerId = session.customer; // Stripe customer ID
-//     const subscriptionId = session.subscription; // Stripe subscription ID
-
-//     // You can use the customer ID to find the user in your database
-//     // and update their record with the subscription details and role
-//     const sql = 'UPDATE Person SET stripe_customer_id = ?, stripe_subscription_id = ?, Role = ? WHERE Email = ?';
-//     const role = 'subscriber'; // Assign a role based on your logic
-
-//     db.query(sql, [customerId, subscriptionId, role, session.customer_email], (err, result) => {
-//       if (err) {
-//         console.error('Error updating user in the database:', err.message);
-//         return res.status(500).send('Database update failed');
-//       }
-//       console.log('User updated successfully');
-//     });
-//   }
- 
 
 
 app.listen(PORT, () => {

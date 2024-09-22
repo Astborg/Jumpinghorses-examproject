@@ -9,6 +9,7 @@ const stripePromise = loadStripe('pk_test_51P1AxTEGk7e8lKhxl16I3P0CzdtxMoWc3MiP2
 
 export default function Subscriptions() {
   const [selectedPlan, setSelectedPlan] = useState('');
+  const [subscriptionId, setSubscriptionId] = useState('');
 
   const handleSubscriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPlan(e.target.value);
@@ -34,6 +35,22 @@ export default function Subscriptions() {
       });
     } catch (error) {
       console.error('Error creating checkout session:', error);
+    }
+  };
+
+  const handleInputChange = (e:any) => {
+    setSubscriptionId(e.target.value);
+  };
+
+  const handleCancelSubscription = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/cancel-subscription', {
+        stripeSubscriptionId: subscriptionId,
+      });
+      alert(response.data.message); // Visa ett meddelande om att prenumerationen har satts på att avbrytas
+    } catch (error) {
+      console.error('Error cancelling subscription:', error);
+      alert('Failed to cancel subscription');
     }
   };
 
@@ -78,6 +95,16 @@ export default function Subscriptions() {
 
         <button type="button" onClick={handleSubscribe}>Subscribe</button>
       </form>
+      <div>
+      <h2>Cancel Subscription</h2>
+      <input
+        type="text"
+        value={subscriptionId}
+        onChange={handleInputChange}
+        placeholder="Enter Stripe Subscription ID"
+      />
+      <button onClick={handleCancelSubscription}>Cancel Subscription</button>
+    </div>
     </>
   );
 }
