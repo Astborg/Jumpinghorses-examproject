@@ -11,45 +11,51 @@ import Subscriptions from "./pages/Subcriptions";
 import { Auth0Provider } from '@auth0/auth0-react';
 import Ad from "./pages/Ad";
 import Success from "./pages/Success";
+import Layout from "./components/Layout";
 
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/ads",
-    element: <Adds/>,
-  },
-  {
-    path: "/ads/:id",
-    element: <Ad/>,
-  },
-  {
-    path: "/login",
-    element: <Login/>,
-  },
-  {
-    path: "/myads",
-    element: <MyAdds/>,
-  },
-  {
-    path: "/newad",
-    element: <NewAdd/>,
-  },
-  
-  {
-    path: "/subscription",
-    element: <Subscriptions/>,
-  },
-  {
-    path: "/success",
-    element: <Success/>,
-  },
-  
+    element: <Layout/>, // Använd Layout som parent
+    children: [
+      {
+        path: "/",
+        element: <Home />
+      },
+      {
+        path: "/ads",
+        element: <Adds />
+      },
+      {
+        path: "/ads/:id",
+        element: <Ad />
+      },
+      {
+        path: "/login",
+        element: <Login />
+      },
+      {
+        path: "/myads",
+        element: <MyAdds />
+      },
+      {
+        path: "/newad",
+        element: <NewAdd />
+      },
+      {
+        path: "/subscription",
+        element: <Subscriptions />
+      },
+      {
+        path: "/success",
+        element: <Success />
+      }
+    ]
+  }
 ]);
+
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -63,6 +69,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         cacheLocation="localstorage" 
   >
       <RouterProvider router={router} />
+      
       </Auth0Provider>
   </React.StrictMode>
 );

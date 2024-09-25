@@ -31,7 +31,7 @@ const Ad = () => {
 
   return (
     <>
-    <HeadLayout></HeadLayout>
+   
     <div>
       <h1>{ad.Rubrik}</h1>
       <p>{ad.Beskrivning}</p>

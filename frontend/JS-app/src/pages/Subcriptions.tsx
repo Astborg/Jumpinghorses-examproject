@@ -56,7 +56,7 @@ export default function Subscriptions() {
 
   return (
     <>
-    <HeadLayout />
+    
       <h2>Select Your Subscription</h2>
       <form>
         <div>

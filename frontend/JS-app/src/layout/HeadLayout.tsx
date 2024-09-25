@@ -33,26 +33,26 @@ export default function HeadLayout() {
       fetchRole();
     }, [user, isAuthenticated]);
 
-    const saveUserToDatabase = async (user:any) => {
-      try {
-        await axios.post("http://localhost:5000/save-user", {
-          email: user.email,
+    // const saveUserToDatabase = async (user:any) => {
+    //   try {
+    //     await axios.post("http://localhost:5000/save-user", {
+    //       email: user.email,
           
           
           
-        });
-      } catch (error) {
-        console.error("Error saving user to the database", error);
-      }
-    };
+    //     });
+    //   } catch (error) {
+    //     console.error("Error saving user to the database", error);
+    //   }
+    // };
 
-    useEffect(() => {
-      if (isAuthenticated && user) {
-        console.log("Saving user to the database");
-        saveUserToDatabase(user);
+    // useEffect(() => {
+    //   if (isAuthenticated && user) {
+    //     console.log("Saving user to the database");
+    //     saveUserToDatabase(user);
        
-      }
-    }, [isAuthenticated, user]);
+    //   }
+    // }, [isAuthenticated, user]);
 
     if (isLoading) {
         return <div>Loading...</div>; 

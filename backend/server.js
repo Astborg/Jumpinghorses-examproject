@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 5000;
 const { expressjwt: jwt } = require('express-jwt'); 
 const jwksRsa = require('jwks-rsa');
+const multer = require('multer'); // Middleware för filuppladdning
+const path = require('path');
 const stripe = require('stripe')('sk_test_51P1AxTEGk7e8lKhx7d8y2sc3geuObxXKTbjWemfNXaEJosBs8fj1EmLxuveN4JeWHwM3VrPxLm8mqgc9XTjisWE900uDyo1qYN'); 
 
 const app = express();
@@ -120,6 +122,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('Hello from the backend!');
 });
+
 // Middleware för att verifiera JWT
 const checkJwt = jwt({
     secret: jwksRsa.expressJwtSecret({
@@ -204,7 +207,7 @@ const checkJwt = jwt({
         });
       }
     )
-    
+
 // Route för att få användarens roll baserat på deras email
 app.get('/user-role', (req, res) => {
   const email = req.query.userEmail; // Hämta e-post från query-parametern
@@ -228,7 +231,50 @@ app.get('/user-role', (req, res) => {
   });
 });
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Se till att denna sökväg är korrekt
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Skapar ett unikt filnamn
+  }
+});
 
+const upload = multer({ storage: storage });
+
+// Route för att spara ny annons
+app.post('/new-ad', upload.single('Bild'), (req, res) => {
+  const { Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id } = req.body;
+  const Bild = req.file ? req.file.filename : null;
+
+  const sql = 'INSERT INTO Annons (Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const values = [Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild];
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Error saving ad:', err);
+      return res.status(500).send('Error saving ad');
+    }
+    res.status(200).send('Ad saved successfully');
+  });
+});
+app.use('/uploads', express.static('uploads'));
+
+app.post('/cancel-subscription', async (req, res) => {
+  const { stripeSubscriptionId } = req.body;
+
+  try {
+    // Avbryt prenumerationen hos Stripe vid slutet av perioden
+    const subscription = await stripe.subscriptions.update(stripeSubscriptionId, {
+      cancel_at_period_end: true, // Sätt till true för att avsluta vid periodens slut
+    });
+
+    res.json({ message: 'Subscription cancellation scheduled successfully' });
+  } catch (error) {
+    console.error('Error cancelling subscription:', error);
+    res.status(500).send('Error cancelling subscription');
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

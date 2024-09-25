@@ -52,7 +52,7 @@ export default function Adds() {
           const filtered = ads.filter(ad => {
             return (
               (searchCriteria.Rubrik === '' || ad.Rubrik.toLowerCase().includes(searchCriteria.Rubrik.toLowerCase())) &&
-              (searchCriteria.Date === '' || new Date(ad.Date).toISOString().split('T')[0] === searchCriteria.Date) &&  
+              (searchCriteria.Date === '' || new Date(ad.Date).toLocaleDateString('sv-SE').split('T')[0] === searchCriteria.Date) &&  
               (searchCriteria.Pris === '' || ad.Pris.toString().includes(searchCriteria.Pris)) &&
               (searchCriteria.Nivå === '' || ad.Nivå.toLowerCase().includes(searchCriteria.Nivå.toLowerCase())) &&
               (searchCriteria.Stad === '' || ad.Stad.toLowerCase().includes(searchCriteria.Stad.toLowerCase()))
@@ -63,12 +63,13 @@ export default function Adds() {
       }, [searchCriteria, ads]);
     
       const convertToLocalDate = (dateString: string) => {
+        console.log(dateString)
   const date = new Date(dateString);
   return date.toLocaleDateString('sv-SE');  // Adjust to local time in Sweden (sv-SE)
 };
   return (
     <>
-      <HeadLayout />
+      
       <h1>Ads</h1>
 
       {/* Search fields */}

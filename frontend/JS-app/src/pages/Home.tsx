@@ -3,7 +3,7 @@ import HeadLayout from "../layout/HeadLayout";
 const Home = () => {
     return (
         <>
-        <HeadLayout></HeadLayout>
+        
       <div>
         <h2>Welcome to JumpingHorses.se</h2>
         <h4>Log in or sign up to see Adds</h4>

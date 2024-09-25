@@ -1,5 +1,7 @@
 
 import './App.css'
+import SaveUser from './components/SaveUser'
+import HeadLayout from './layout/HeadLayout'
 
 
 function App() {
@@ -8,7 +10,6 @@ function App() {
   return (
     <>
       
-       
     </>
   )
 }
