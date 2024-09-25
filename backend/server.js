@@ -107,6 +107,14 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), (req, res) =>
     }
     console.log(`User role updated to failure for subscription: ${stripeSubscriptionId}`);
   });
+  const deleteAdsSql = 'DELETE FROM Annons WHERE Person_id = (SELECT Email FROM Person WHERE stripe_subscription_id = ?)';
+  db.query(deleteAdsSql, [stripeSubscriptionId], (err, result) => {
+    if (err) {
+      console.error('Error deleting ads in the database:', err.message);
+      return res.status(500).send('Database delete failed');
+    }
+    console.log(`Ads deleted for subscription: ${stripeSubscriptionId}`);
+  });
 }
 
 
@@ -141,6 +149,25 @@ const checkJwt = jwt({
     res.send('Detta är en skyddad rutt!');
   });
 
+  const cron = require('node-cron');
+
+  // Schemalagd uppgift som körs varje dag vid midnatt //UNCOMMENT LATER
+  // cron.schedule('0 0 * * *', () => {
+  //   console.log('Running daily job to delete old ads');
+    
+  //   const deleteOldAdsSql = `
+  //     DELETE FROM Annons 
+  //     WHERE Date < (CURDATE() - INTERVAL 7 DAY)
+  //   `;
+  
+  //   db.query(deleteOldAdsSql, (err, result) => {
+  //     if (err) {
+  //       console.error('Error deleting old ads:', err.message);
+  //     } else {
+  //       console.log('Old ads deleted successfully:', result.affectedRows);
+  //     }
+  //   });
+  // });
 
 
   app.get('/ads', (req, res) => {
@@ -167,6 +194,15 @@ const checkJwt = jwt({
   app.post('/create-checkout-session', async (req, res) => {
     const { priceId, email } = req.body;  // Pass the price ID of the selected subscription from the frontend
     console.log(priceId)
+    const sql = 'UPDATE Person SET stripe_price_id = ? WHERE Email = ?';
+  db.query(sql, [priceId, email], (err, result) => {
+    if (err) {
+      console.error('Error updating user plan:', err.message);
+      return res.status(500).send(`Error updating user plan: ${err.message}`);
+    }
+    console.log('User plan updated successfully');
+  });
+
     const customer = await stripe.customers.create({
       email: email, // Use the user's email from the request
     });
@@ -242,6 +278,29 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+app.get('/user-plan', (req, res) => {
+  const {email} = req.query;
+
+  if (!email) {
+    return res.status(400).send('Email is required');
+  }
+
+  const sql = 'SELECT stripe_price_id FROM Person WHERE Email = ?';
+  db.query(sql, [email], (err, results) => {
+    if (err) {
+      console.error('Error fetching user plan:', err.message);
+      return res.status(500).send('Database query failed');
+    }
+
+    if (results.length > 0) {
+      const priceId = results[0].stripe_price_id;
+      res.json({ plan: priceId });
+    } else {
+      res.status(404).send('User not found');
+    }
+  });
+});
+
 // Route för att spara ny annons
 app.post('/new-ad', upload.single('Bild'), (req, res) => {
   const { Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id } = req.body;
@@ -259,6 +318,24 @@ app.post('/new-ad', upload.single('Bild'), (req, res) => {
   });
 });
 app.use('/uploads', express.static('uploads'));
+
+app.get('/ad-count', (req, res) => {
+  const personId = req.query.personId; // Hämta personId från query-parametern
+  
+  if (!personId) {
+    return res.status(400).send('Person ID is required');
+  }
+
+  const sql = 'SELECT COUNT(*) AS adCount FROM Annons WHERE Person_id = ?';
+  db.query(sql, [personId], (err, results) => {
+    if (err) {
+      console.error('Error fetching ad count:', err.message);
+      return res.status(500).send('Database query failed');
+    }
+
+    res.json({ adCount: results[0].adCount });
+  });
+});
 
 app.post('/cancel-subscription', async (req, res) => {
   const { stripeSubscriptionId } = req.body;

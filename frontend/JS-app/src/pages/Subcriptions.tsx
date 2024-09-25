@@ -10,6 +10,7 @@ const stripePromise = loadStripe('pk_test_51P1AxTEGk7e8lKhxl16I3P0CzdtxMoWc3MiP2
 export default function Subscriptions() {
   const [selectedPlan, setSelectedPlan] = useState('');
   const [subscriptionId, setSubscriptionId] = useState('');
+  
 
   const handleSubscriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPlan(e.target.value);
@@ -67,7 +68,7 @@ export default function Subscriptions() {
               checked={selectedPlan === 'price_1Pzz6AEGk7e8lKhxEtq9m3Mc'}
               onChange={handleSubscriptionChange}
             />
-            Bronze Plan
+            Bronze Plan - One ad only, 1 week
           </label>
         </div>
         <div>
@@ -78,7 +79,7 @@ export default function Subscriptions() {
               checked={selectedPlan === 'price_1Pzz7LEGk7e8lKhxOfaEiyJI'}
               onChange={handleSubscriptionChange}
             />
-            Silver Plan
+            Silver Plan - Unlimited ads, 1 week
           </label>
         </div>
         <div>
@@ -89,7 +90,7 @@ export default function Subscriptions() {
               checked={selectedPlan === 'price_1Pzz8VEGk7e8lKhxXF0u6GAo'}
               onChange={handleSubscriptionChange}
             />
-            Gold Plan
+            Gold Plan - Unlimited ads, 1 week, + extra companylink
           </label>
         </div>
 

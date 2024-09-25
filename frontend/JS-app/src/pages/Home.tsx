@@ -1,4 +1,5 @@
-import HeadLayout from "../layout/HeadLayout";
+import SaveUser from "../components/SaveUser";
+
 
 const Home = () => {
     return (
