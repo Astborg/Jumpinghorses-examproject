@@ -10,8 +10,9 @@ interface Ad {
     Beskrivning: string;
     Pris: number;
     Date: string;
-    Nivå: string;
+    Level: string;
     Stad: string;
+    Bild: string;
   }
 export default function Adds() {
     const [ads, setAds] = useState<Ad[]>([]);
@@ -20,7 +21,7 @@ export default function Adds() {
     Rubrik: '',
     Date: '',
     Pris: '',
-    Nivå: '',
+    Level: '',
     Stad: ''
   });
 
@@ -54,7 +55,7 @@ export default function Adds() {
               (searchCriteria.Rubrik === '' || ad.Rubrik.toLowerCase().includes(searchCriteria.Rubrik.toLowerCase())) &&
               (searchCriteria.Date === '' || new Date(ad.Date).toLocaleDateString('sv-SE').split('T')[0] === searchCriteria.Date) &&  
               (searchCriteria.Pris === '' || ad.Pris.toString().includes(searchCriteria.Pris)) &&
-              (searchCriteria.Nivå === '' || ad.Nivå.toLowerCase().includes(searchCriteria.Nivå.toLowerCase())) &&
+              (searchCriteria.Level === '' || ad.Level.toLowerCase().includes(searchCriteria.Level.toLowerCase())) &&
               (searchCriteria.Stad === '' || ad.Stad.toLowerCase().includes(searchCriteria.Stad.toLowerCase()))
             );
           });
@@ -119,8 +120,15 @@ export default function Adds() {
             <p>{ad.Beskrivning}</p>
             <p>Price: {ad.Pris}</p>
             <p>Date: {convertToLocalDate(ad.Date)}</p>
-            <p>Level: {ad.Nivå}</p>
+            <p>Level: {ad.Level}</p>
             <p>City: {ad.Stad}</p>
+            {ad.Bild && (
+                <img 
+                  src={`http://localhost:5000/uploads/${ad.Bild}`} // Visa bilden från servern
+                  
+                  width="200" 
+                />
+              )}
             <Link to={`/ads/${ad._id}`}>Read More</Link>
           </li>
         ))}

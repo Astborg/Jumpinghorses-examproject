@@ -294,16 +294,6 @@ app.get('/user-role', (req, res) => {
   });
 });
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Se till att denna sökväg är korrekt
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Skapar ett unikt filnamn
-  }
-});
-
-const upload = multer({ storage: storage });
 
 app.get('/user-plan', (req, res) => {
   const {email} = req.query;
@@ -328,6 +318,16 @@ app.get('/user-plan', (req, res) => {
   });
 });
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Se till att denna sökväg är korrekt
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Skapar ett unikt filnamn
+  }
+});
+
+const upload = multer({ storage: storage });
 // Route för att spara ny annons
 app.post('/new-ad', upload.single('Bild'), (req, res) => {
   const { Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id } = req.body;
@@ -345,6 +345,8 @@ app.post('/new-ad', upload.single('Bild'), (req, res) => {
   });
 });
 app.use('/uploads', express.static('uploads'));
+
+
 
 app.get('/ad-count', (req, res) => {
   const personId = req.query.personId; // Hämta personId från query-parametern

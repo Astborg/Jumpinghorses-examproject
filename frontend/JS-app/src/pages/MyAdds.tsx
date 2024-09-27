@@ -14,6 +14,7 @@ interface Ad {
   Stad: string;
   AntalVisitors: number;
   Person_id: number;
+  Bild: string;
 }
 
 const MyAds = () => {
@@ -59,6 +60,13 @@ return date.toLocaleDateString('sv-SE');  // Adjust to local time in Sweden (sv-
               <p>Pris: {ad.Pris}</p>
               <p>Datum: {convertToLocalDate(ad.Date)}</p>
               <p>Stad: {ad.Stad}</p>
+              {ad.Bild && (
+                <img 
+                  src={`http://localhost:5000/uploads/${ad.Bild}`} // Visa bilden från servern
+                  
+                  width="200" 
+                />
+              )}
               {/* Lägg till fler fält som behövs */}
             </li>
           ))}
