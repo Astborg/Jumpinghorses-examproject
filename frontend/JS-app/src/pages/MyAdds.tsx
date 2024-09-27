@@ -37,10 +37,16 @@ const MyAds = () => {
     fetchUserAds();
   }, [user, isAuthenticated]);
 
+  const convertToLocalDate = (dateString: string) => {
+    console.log(dateString)
+const date = new Date(dateString);
+return date.toLocaleDateString('sv-SE');  // Adjust to local time in Sweden (sv-SE)
+  }
+
   if (!isAuthenticated) {
     return <div>Du måste vara inloggad för att se dina annonser.</div>;
   }
-
+ 
   return (
     <div>
       <h2>Mina Annonser</h2>
@@ -51,7 +57,7 @@ const MyAds = () => {
               <h3>{ad.Rubrik}</h3>
               <p>{ad.Beskrivning}</p>
               <p>Pris: {ad.Pris}</p>
-              <p>Datum: {ad.Date}</p>
+              <p>Datum: {convertToLocalDate(ad.Date)}</p>
               <p>Stad: {ad.Stad}</p>
               {/* Lägg till fler fält som behövs */}
             </li>
