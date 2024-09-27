@@ -152,22 +152,22 @@ const checkJwt = jwt({
   const cron = require('node-cron');
 
   // Schemalagd uppgift som körs varje dag vid midnatt //UNCOMMENT LATER
-  // cron.schedule('0 0 * * *', () => {
-  //   console.log('Running daily job to delete old ads');
+  cron.schedule('0 0 * * *', () => {
+    console.log('Running daily job to delete old ads');
     
-  //   const deleteOldAdsSql = `
-  //     DELETE FROM Annons 
-  //     WHERE Date < (CURDATE() - INTERVAL 7 DAY)
-  //   `;
+    const deleteOldAdsSql = `
+      DELETE FROM Annons 
+      WHERE Date < (CURDATE() - INTERVAL 7 DAY)
+    `;
   
-  //   db.query(deleteOldAdsSql, (err, result) => {
-  //     if (err) {
-  //       console.error('Error deleting old ads:', err.message);
-  //     } else {
-  //       console.log('Old ads deleted successfully:', result.affectedRows);
-  //     }
-  //   });
-  // });
+    db.query(deleteOldAdsSql, (err, result) => {
+      if (err) {
+        console.error('Error deleting old ads:', err.message);
+      } else {
+        console.log('Old ads deleted successfully:', result.affectedRows);
+      }
+    });
+  });
 
 
   app.get('/ads', (req, res) => {
@@ -330,11 +330,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 // Route för att spara ny annons
 app.post('/new-ad', upload.single('Bild'), (req, res) => {
-  const { Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id } = req.body;
+  const { Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, extraLink } = req.body;
   const Bild = req.file ? req.file.filename : null;
 
-  const sql = 'INSERT INTO Annons (Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-  const values = [Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild];
+  const sql = 'INSERT INTO Annons (Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild, Link) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const values = [Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild, extraLink];
 
   db.query(sql, values, (err, result) => {
     if (err) {

@@ -100,7 +100,7 @@ export default function Adds() {
           type="text"
           name="Nivå"
           placeholder="Search by level (Nivå)"
-          value={searchCriteria.Nivå}
+          value={searchCriteria.Level}
           onChange={handleInputChange}
         />
         <input

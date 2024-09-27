@@ -98,7 +98,7 @@ const NewAd = () => {
       data.append('Bild', selectedFile);
     }
     if (selectedPlan === 'price_1Pzz8VEGk7e8lKhxXF0u6GAo') {
-      data.append('ExtraLink', extraLink); // Skicka med extra länken om planen är Gold
+      data.append('extraLink', extraLink); // Skicka med extra länken om planen är Gold
     }
 
     try {
