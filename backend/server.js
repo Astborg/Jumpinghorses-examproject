@@ -191,6 +191,33 @@ const checkJwt = jwt({
     });
   });
 
+  app.get('/my-ads', (req, res) => {
+    const userEmail = req.query.email; // Hämta användarens email från query-parametrar
+  
+    if (!userEmail) {
+      return res.status(400).send('Email is required');
+    }
+  
+    // Antag att Person_id är kopplat till användarens e-post i tabellen Person
+    const sql = `
+      SELECT * FROM Annons 
+WHERE Person_id IN (SELECT Email FROM Person WHERE Email = ?)
+    `;
+  
+    db.query(sql, [userEmail], (err, results) => {
+      if (err) {
+        console.error('Error fetching ads:', err.message);
+        return res.status(500).send('Database query failed');
+      }
+  
+      if (results.length > 0) {
+        res.json(results); // Returnera alla annonser som tillhör användaren
+      } else {
+        res.status(404).send('No ads found for this user');
+      }
+    });
+  });
+
   app.post('/create-checkout-session', async (req, res) => {
     const { priceId, email } = req.body;  // Pass the price ID of the selected subscription from the frontend
     console.log(priceId)
