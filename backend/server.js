@@ -182,12 +182,22 @@ const checkJwt = jwt({
 
   app.get('/ads/:id', (req, res) => {
     const adId = req.params.id;
-    const sql = `SELECT * FROM Annons WHERE _id = ?;`;
-    db.query(sql, [adId], (error, result) => {
+  
+    // SQL query to increment the AntalVisitors count
+    const incrementVisitorsSql = 'UPDATE Annons SET AntalVisitors = AntalVisitors + 1 WHERE _id = ?';
+    db.query(incrementVisitorsSql, [adId], (error, result) => {
       if (error) {
-        return res.status(500).send('Error retrieving ad details');
+        return res.status(500).send('Error updating visitor count');
       }
-      res.json(result[0]);
+  
+      // SQL query to retrieve the ad details
+      const getAdSql = 'SELECT * FROM Annons WHERE _id = ?';
+      db.query(getAdSql, [adId], (error, result) => {
+        if (error) {
+          return res.status(500).send('Error retrieving ad details');
+        }
+        res.json(result[0]);
+      });
     });
   });
 

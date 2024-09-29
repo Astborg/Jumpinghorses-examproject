@@ -8,7 +8,7 @@ const Layout = () => {
   return (
     <>
       <HeadLayout /> {/* Här är din meny/huvudlayout */}
-      <SaveUser></SaveUser>
+      
       <main>
         <Outlet /> {/* Outlet för att visa barnkomponenter beroende på rutt */}
       </main>

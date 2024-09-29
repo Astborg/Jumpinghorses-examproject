@@ -12,6 +12,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import Ad from "./pages/Ad";
 import Success from "./pages/Success";
 import Layout from "./components/Layout";
+import SaveUser from "./components/SaveUser";
 
 
 
@@ -58,7 +59,9 @@ const router = createBrowserRouter([
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <>
+  
        <Auth0Provider
         domain="dev-750v23phcwvolq52.us.auth0.com"
         clientId="1KJEmXaQwWpBo9yl6r0pNY379JsVDsc3"
@@ -69,8 +72,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         cacheLocation="localstorage" 
   >
       <RouterProvider router={router} />
-      
+      <SaveUser></SaveUser>
       </Auth0Provider>
-  </React.StrictMode>
+      </>
+  // </React.StrictMode>
 );
 

@@ -8,6 +8,7 @@ interface Ad {
   Rubrik: string;
   Beskrivning: string;
   Pris: number;
+  AntalVisitors: number;
 }
 
 const Ad = () => {
@@ -36,6 +37,7 @@ const Ad = () => {
       <h1>{ad.Rubrik}</h1>
       <p>{ad.Beskrivning}</p>
       <p>Price: {ad.Pris}</p>
+      <p>Visitors: {ad.AntalVisitors}</p> 
     </div>
     </>
   );
