@@ -60,7 +60,7 @@ export default function HeadLayout() {
   return (
     <>
     
-    <header>
+    <header className="header">
         
         {isAuthenticated ? (
             <nav>

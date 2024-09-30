@@ -3,7 +3,7 @@ import HeadLayout from '../layout/HeadLayout'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import '../style/Ads.css'
 interface Ad {
     _id: number;  
     Rubrik: string;
@@ -71,10 +71,10 @@ export default function Adds() {
   return (
     <>
       
-      <h1>Ads</h1>
+      <h1 className="ads-title">Ads</h1>
 
       {/* Search fields */}
-      <div>
+      <div className="search-container">
         <input
           type="text"
           name="Rubrik"
@@ -112,27 +112,32 @@ export default function Adds() {
         />
       </div>
 
-      {/* Display filtered ads */}
-      <ul>
+          {/* Display filtered ads */}
+          <div className="ads-list">
         {filteredAds.map(ad => (
-          <li key={ad._id}>
-            <h3>{ad.Rubrik}</h3>
-            <p>{ad.Beskrivning}</p>
-            <p>Price: {ad.Pris}</p>
-            <p>Date: {convertToLocalDate(ad.Date)}</p>
-            <p>Level: {ad.Level}</p>
-            <p>City: {ad.Stad}</p>
-            {ad.Bild && (
-                <img 
-                  src={`http://localhost:5000/uploads/${ad.Bild}`} // Visa bilden från servern
-                  
-                  width="200" 
-                />
-              )}
-            <Link to={`/ads/${ad._id}`}>Read More</Link>
-          </li>
+          <div className="ad-card" key={ad._id}>
+            
+            <div className="ad-details">
+              <h3>{ad.Rubrik}</h3>
+              <p>{ad.Beskrivning}</p>
+              <p><strong>Price:</strong> {ad.Pris} SEK</p>
+              <p><strong>Date:</strong> {convertToLocalDate(ad.Date)}</p>
+              <p><strong>Level:</strong> {ad.Level}</p>
+              <p><strong>City:</strong> {ad.Stad}</p>
+              {ad.Bild && (
+              <img 
+                src={`http://localhost:5000/uploads/${ad.Bild}`}
+                className="ad-image2"
+                alt={ad.Rubrik}
+              />
+            )}
+            <div>
+              <Link to={`/ads/${ad._id}`} className="read-more-btn">Read More</Link>
+              </div>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </>
   );
 }

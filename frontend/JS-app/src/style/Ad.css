@@ -1,0 +1,57 @@
+/* General container styles */
+.ad-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Styles for ad details */
+  .ad-details {
+    text-align: left;
+  }
+  
+  .ad-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .ad-description {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-top: 10px;
+    color: #555;
+  }
+  
+  .ad-price,
+  .ad-visitors,
+  .ad-city {
+    font-size: 1.1rem;
+    margin-top: 8px;
+    color: #333;
+  }
+  
+  /* Map container styles */
+  .ad-map {
+    margin-top: 20px;
+    width: 100%;
+    height: 400px;
+  }
+  
+  .ad-map > div {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .ad-image {
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+  }
+  

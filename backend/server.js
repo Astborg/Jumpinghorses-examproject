@@ -8,7 +8,7 @@ const jwksRsa = require('jwks-rsa');
 const multer = require('multer'); // Middleware för filuppladdning
 const path = require('path');
 const stripe = require('stripe')('sk_test_51P1AxTEGk7e8lKhx7d8y2sc3geuObxXKTbjWemfNXaEJosBs8fj1EmLxuveN4JeWHwM3VrPxLm8mqgc9XTjisWE900uDyo1qYN'); 
-
+const axios = require('axios');
 const app = express();
 
 
@@ -391,6 +391,20 @@ app.post('/cancel-subscription', async (req, res) => {
     res.status(500).send('Error cancelling subscription');
   }
 });
+app.get('/geocode', async (req, res) => {
+  const { city } = req.query;
+  const apiKey = 'AIzaSyA14uTE0zxVHKhqKZsKqeraWpKpg8sl_wI'; // Replace with your Google Maps API key
+  const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(city)}&key=AIzaSyA14uTE0zxVHKhqKZsKqeraWpKpg8sl_wI`;
+  
+  try {
+    const response = await axios.get(geocodeUrl);
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching geocode:', error);
+    res.status(500).send('Error fetching geocode');
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
