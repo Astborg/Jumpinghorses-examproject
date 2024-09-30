@@ -19,7 +19,7 @@ const Ad = () => {
   const [ad, setAd] = useState<Ad | null>(null);
   const [coordinates, setCoordinates] = useState<{ lat: number; lng: number } | null>(null);
 
-  const googleMapsApiKey = 'AIzaSyA14uTE0zxVHKhqKZsKqeraWpKpg8sl_wI'; // Replace with your Google Maps API key
+  ; // Replace with your Google Maps API key
   useEffect(() => {
 
     axios.get(`http://localhost:5000/ads/${id}`)
@@ -71,7 +71,7 @@ const Ad = () => {
         <p className="ad-city"><strong>City:</strong> {ad.Stad}</p>
       </div>
       {coordinates && (
-        <LoadScript googleMapsApiKey='AIzaSyA14uTE0zxVHKhqKZsKqeraWpKpg8sl_wI'>
+        <LoadScript googleMapsApiKey={import.meta.env.SECRET_KEY}>
           <GoogleMap
             mapContainerStyle={{ height: '400px', width: '100%' }}
             zoom={12}
