@@ -1,3 +1,31 @@
+// require('dotenv').config();
+// const express = require('express');
+// const cors = require('cors');
+// const bodyParser = require('body-parser');
+// const adsRoutes = require('./routes/adsRoutes');
+// const userRoutes = require('./routes/userRoutes');
+// const subscriptionRoutes = require('./routes/subscriptionRoutes');
+// const webhookRoutes = require('./routes/webhookRoutes');
+// const { runDailyJob } = require('./utils/cronJobs');
+// const app = express();
+// const PORT = process.env.PORT || 5000;
+
+// app.use(cors());
+// app.use(bodyParser.json());
+// app.use('/api', adsRoutes);
+// app.use('/api', userRoutes);
+// app.use('/api', subscriptionRoutes);
+// app.use('/api', webhookRoutes);
+
+// runDailyJob(); // Start the cron job
+
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
+
+
+
+
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
@@ -151,27 +179,30 @@ const checkJwt = jwt({
 
   const cron = require('node-cron');
 
-  // Schemalagd uppgift som körs varje dag vid midnatt //UNCOMMENT LATER
+  // Schemalagd uppgift som körs varje dag vid midnatt
   cron.schedule('0 0 * * *', () => {
-    console.log('Running daily job to delete old ads');
+    console.log('Running daily job to update old ads');
+    const role = 'old';
     
-    const deleteOldAdsSql = `
-      DELETE FROM Annons 
-      WHERE Date < (CURDATE() - INTERVAL 7 DAY)
+    // Corrected SQL query to update Role field
+    const updateOldAdsSql = `
+      UPDATE Annons 
+      SET Role = ? 
+      WHERE Date < (CURDATE() - INTERVAL 1 DAY)
     `;
-  
-    db.query(deleteOldAdsSql, (err, result) => {
+    
+    db.query(updateOldAdsSql, [role], (err, result) => {
       if (err) {
-        console.error('Error deleting old ads:', err.message);
+        console.error('Error updating old ads:', err.message);
       } else {
-        console.log('Old ads deleted successfully:', result.affectedRows);
+        console.log('Old ads updated successfully:', result.affectedRows);
       }
     });
   });
 
 
   app.get('/ads', (req, res) => {
-    const sql = 'SELECT * FROM Annons';
+    const sql = 'SELECT * FROM Annons WHERE ROLE = "new"';
     db.query(sql, (error, results) => {
       if (error) {
         return res.status(500).send('Error retrieving ads');
@@ -289,7 +320,7 @@ app.get('/user-role', (req, res) => {
     return res.status(400).send('Email is required');
   }
 
-  const sql = 'SELECT Role FROM Person WHERE Email = ?';
+  const sql = 'SELECT Role, Email FROM Person WHERE Email = ?';
   db.query(sql, [email], (err, results) => {
     if (err) {
       console.error('Error fetching user role:', err.message);
@@ -297,7 +328,7 @@ app.get('/user-role', (req, res) => {
     }
 
     if (results.length > 0) {
-      res.json({ role: results[0].Role });
+      res.json({ role: results[0].Role, email: results[0].Email });
     } else {
       res.status(404).send('User not found');
     }
@@ -337,14 +368,15 @@ const storage = multer.diskStorage({
   }
 });
 
+
 const upload = multer({ storage: storage });
 // Route för att spara ny annons
 app.post('/new-ad', upload.single('Bild'), (req, res) => {
-  const { Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, extraLink } = req.body;
+  const { Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, extraLink, youtubeLink  } = req.body;
   const Bild = req.file ? req.file.filename : null;
-
-  const sql = 'INSERT INTO Annons (Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild, Link) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-  const values = [Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild, extraLink];
+  const Role = 'new'
+  const sql = 'INSERT INTO Annons (Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild, Link, Role, YoutubeLink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const values = [Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild, extraLink, Role, youtubeLink];
 
   db.query(sql, values, (err, result) => {
     if (err) {
@@ -391,10 +423,12 @@ app.post('/cancel-subscription', async (req, res) => {
     res.status(500).send('Error cancelling subscription');
   }
 });
+
+
 app.get('/geocode', async (req, res) => {
   const { city } = req.query;
-  const apiKey = 'AIzaSyA14uTE0zxVHKhqKZsKqeraWpKpg8sl_wI'; // Replace with your Google Maps API key
-  const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(city)}&key=AIzaSyA14uTE0zxVHKhqKZsKqeraWpKpg8sl_wI`;
+  const apiKey = 'AIzaSyDbemniGBYZxAwRvuCbMkcmzh56zH2fgF4'; // Replace with your Google Maps API key
+  const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(city)}&key=AIzaSyDbemniGBYZxAwRvuCbMkcmzh56zH2fgF4`;
   
   try {
     const response = await axios.get(geocodeUrl);

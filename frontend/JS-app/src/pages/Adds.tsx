@@ -98,7 +98,7 @@ export default function Adds() {
         />
         <input
           type="text"
-          name="Nivå"
+          name="Level"
           placeholder="Search by level (Nivå)"
           value={searchCriteria.Level}
           onChange={handleInputChange}

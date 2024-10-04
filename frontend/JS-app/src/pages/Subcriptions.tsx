@@ -3,6 +3,7 @@ import axios from 'axios';
 import HeadLayout from '../layout/HeadLayout';
 import { loadStripe } from '@stripe/stripe-js';
 import { useAuth0 } from '@auth0/auth0-react';
+import '../style/Subscription.css'
 
 const stripePromise = loadStripe('pk_test_51P1AxTEGk7e8lKhxl16I3P0CzdtxMoWc3MiP2atNyjbNcWDgQXhDq5IGyemBYlD12TtpleFG6pHjYSCSfLuVn1fc00wrvt7JSn');
 
@@ -58,13 +59,15 @@ export default function Subscriptions() {
   return (
     <>
     
+    <div className="subscription-container">
       <h2>Select Your Subscription</h2>
+      <h5>You can cancel at anytime and also upgrade to a new subsription at anytime</h5>
       <form>
         <div>
           <label>
             <input
               type="radio"
-              value="price_1Pzz6AEGk7e8lKhxEtq9m3Mc"  // Replace with your Stripe Price ID for Bronze
+              value="price_1Pzz6AEGk7e8lKhxEtq9m3Mc"
               checked={selectedPlan === 'price_1Pzz6AEGk7e8lKhxEtq9m3Mc'}
               onChange={handleSubscriptionChange}
             />
@@ -75,7 +78,7 @@ export default function Subscriptions() {
           <label>
             <input
               type="radio"
-              value="price_1Pzz7LEGk7e8lKhxOfaEiyJI"  // Replace with your Stripe Price ID for Silver
+              value="price_1Pzz7LEGk7e8lKhxOfaEiyJI"
               checked={selectedPlan === 'price_1Pzz7LEGk7e8lKhxOfaEiyJI'}
               onChange={handleSubscriptionChange}
             />
@@ -86,25 +89,26 @@ export default function Subscriptions() {
           <label>
             <input
               type="radio"
-              value="price_1Pzz8VEGk7e8lKhxXF0u6GAo"  // Replace with your Stripe Price ID for Gold
+              value="price_1Pzz8VEGk7e8lKhxXF0u6GAo"
               checked={selectedPlan === 'price_1Pzz8VEGk7e8lKhxXF0u6GAo'}
               onChange={handleSubscriptionChange}
             />
-            Gold Plan - Unlimited ads, 1 week, + extra companylink
+            Gold Plan - Unlimited ads, 1 week, + extra company link + youtubelink to your video
           </label>
         </div>
-
         <button type="button" onClick={handleSubscribe}>Subscribe</button>
       </form>
-      <div>
-      <h2>Cancel Subscription</h2>
-      <input
-        type="text"
-        value={subscriptionId}
-        onChange={handleInputChange}
-        placeholder="Enter Stripe Subscription ID"
-      />
-      <button onClick={handleCancelSubscription}>Cancel Subscription</button>
+      
+      <div className="cancel-section">
+        <h2>Cancel Subscription</h2>
+        <input
+          type="text"
+          value={subscriptionId}
+          onChange={handleInputChange}
+          placeholder="Enter Stripe Subscription ID"
+        />
+        <button onClick={handleCancelSubscription}>Cancel Subscription</button>
+      </div>
     </div>
     </>
   );

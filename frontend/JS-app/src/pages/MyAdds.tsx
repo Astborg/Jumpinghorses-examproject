@@ -18,6 +18,7 @@ interface Ad {
   Person_id: number;
   Bild: string;
   Link: string; 
+  Role: string;
 }
 
 const MyAds = () => {
@@ -67,6 +68,7 @@ return date.toLocaleDateString('sv-SE');  // Adjust to local time in Sweden (sv-
             </div>
             <div className="ad-details">
               <h3 className="ad-title">{ad.Rubrik}</h3>
+              <p className="ad-description">Status: {ad.Role}</p>
               <p className="ad-description">{ad.Beskrivning}</p>
               <p className="ad-price">Pris: {ad.Pris} SEK</p>
               <p className="ad-date">Datum: {convertToLocalDate(ad.Date)}</p>

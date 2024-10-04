@@ -2,12 +2,14 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState, useRef  } from "react";
 import axios from "axios";
-
+import '../style/HeadLayout.css'
+import SaveUser from "../components/SaveUser";
 export default function HeadLayout() {
 
 
     const { loginWithRedirect, logout, isAuthenticated, isLoading, user } = useAuth0();
-    const [userRole, setUserRole] = useState<string | null>(null); 
+    const [userRole, setUserRole] = useState<string | null>(null);
+    
     
 
     useEffect(() => {
@@ -23,7 +25,9 @@ export default function HeadLayout() {
             );
   
             setUserRole(response.data.role); 
+            
             console.log('Användarens roll är:', response.data.role);
+            console.log('användaren är:',response.data.email)
           } catch (error) {
             console.error('Failed to fetch role:', error);
           }
@@ -59,40 +63,36 @@ export default function HeadLayout() {
     }
   return (
     <>
-    
+   
     <header className="header">
-        
-        {isAuthenticated ? (
-            <nav>
-            <ul>
-
-                <li><Link to='/'>Home</Link></li>
-                <li><Link to='/ads'>Ads</Link></li>
-                <li><Link to='/subscription'>Subscription</Link></li>
-                {userRole === 'subscriber' && (
-                <>
-                  <li><Link to='/newad'>New Ad</Link></li>
-                  <li><Link to='/myads'>My Ads</Link></li>
-                </>
-              )}
-                </ul>
-                
-                
-                <button onClick={() => logout({ returnTo: window.location.origin })}>
-                Logga ut
-                </button>
-                </nav>
-                ) : (
-                 <button onClick={() => loginWithRedirect()}>Logga in</button>
-                    )}
-                    
+  <nav className="nav-container">
+    <ul className="nav-links">
+      <li><Link to='/'>Home</Link></li>
+      {isAuthenticated && (<>
+        <li><Link to='/ads'>Ads</Link></li>
+      <li><Link to='/subscription'>Subscription</Link></li></>
+    )}
       
-    
-                
-                
-            
-        
-    </header>
+      {userRole === 'subscriber' && (
+        <>
+          <li><Link to='/newad'>New Ad</Link></li>
+          <li><Link to='/myads'>My Ads</Link></li>
+        </>
+      )}
+    </ul>
+
+    {/* Logout button aligned to the right */}
+    {isAuthenticated ? (
+      <button className="logout-button" onClick={() => logout({ returnTo: window.location.origin })}>
+        Logga ut
+      </button>
+    ) : (
+      <button className="login-button" onClick={() => loginWithRedirect({returnTo: 'http://localhost:5173' })}>
+        Logga in
+      </button>
+    )}
+  </nav>
+</header>
     </>
   )
 }

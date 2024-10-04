@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
-
+import '../style/NewAd.css'
 const NewAd = () => {
   const { user, isAuthenticated } = useAuth0();
   
@@ -10,7 +10,7 @@ const NewAd = () => {
   const [adCreated, setAdCreated] = useState(false); // Håller reda på om en annons har skapats
   const [extraLink, setExtraLink] = useState(''); // Håller reda på extra fält för länken
   const [adCount, setAdCount] = useState(0);  
-
+  const [youtubeLink, setYoutubeLink] = useState('');
 
   // useEffect(() => {
   //   const fetchUserPlan = async () => {
@@ -74,6 +74,9 @@ const NewAd = () => {
   const handleExtraLinkChange = (e) => {
     setExtraLink(e.target.value);
   };
+  const handleYoutubeLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setYoutubeLink(e.target.value); // Update YouTube link state
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,7 +101,8 @@ const NewAd = () => {
       data.append('Bild', selectedFile);
     }
     if (selectedPlan === 'price_1Pzz8VEGk7e8lKhxXF0u6GAo') {
-      data.append('extraLink', extraLink); // Skicka med extra länken om planen är Gold
+      data.append('extraLink', extraLink);
+      data.append('youtubeLink', youtubeLink);  // Skicka med extra länken om planen är Gold
     }
 
     try {
@@ -118,48 +122,51 @@ const NewAd = () => {
   
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label>Rubrik:</label>
-        <input type="text" name="Rubrik" value={formData.Rubrik} onChange={handleInputChange} required />
+   <div className="new-ad-container">
+    <h2>Create your New Ad</h2>
+  <form onSubmit={handleSubmit}>
+    <label>Rubrik:</label>
+    <input type="text" name="Rubrik" value={formData.Rubrik} onChange={handleInputChange} required />
 
-        <label>Datum:</label>
-        <input type="date" name="Date" value={formData.Date} onChange={handleInputChange} required />
+    <label>Datum:</label>
+    <input type="date" name="Date" value={formData.Date} onChange={handleInputChange} required />
 
-        <label>Pris:</label>
-        <input type="text" name="Pris" value={formData.Pris} onChange={handleInputChange} required />
+    <label>Pris:</label>
+    <input type="text" name="Pris" value={formData.Pris} onChange={handleInputChange} required />
 
-        <label>Beskrivning:</label>
-        <textarea name="Beskrivning" value={formData.Beskrivning} onChange={handleInputChange} required />
+    <label>Beskrivning:</label>
+    <textarea name="Beskrivning" value={formData.Beskrivning} onChange={handleInputChange} required />
 
-        <label>Kön:</label>
-        <input type="text" name="Gender" value={formData.Gender} onChange={handleInputChange} required />
+    <label>Kön:</label>
+    <input type="text" name="Gender" value={formData.Gender} onChange={handleInputChange} required />
 
-        <label>Ålder:</label>
-        <input type="text" name="Age" value={formData.Age} onChange={handleInputChange} required />
+    <label>Ålder:</label>
+    <input type="text" name="Age" value={formData.Age} onChange={handleInputChange} required />
 
-        <label>Nivå:</label>
-        <input type="text" name="Level" value={formData.Level} onChange={handleInputChange} required />
+    <label>Nivå:</label>
+    <input type="text" name="Level" value={formData.Level} onChange={handleInputChange} required />
 
-        <label>Stad:</label>
-        <input type="text" name="Stad" value={formData.Stad} onChange={handleInputChange} required />
+    <label>Stad:</label>
+    <input type="text" name="Stad" value={formData.Stad} onChange={handleInputChange} required />
 
-        <label>Ladda upp bild:</label>
-        <input type="file" name="Bild" onChange={handleFileChange} required />
+    <label>Ladda upp bild:</label>
+    <input type="file" name="Bild" onChange={handleFileChange} required />
 
-        {/* Extra fält för Guldplanen */}
-        {selectedPlan === 'price_1Pzz8VEGk7e8lKhxXF0u6GAo' && (
-          <div>
-            <label>Länk:</label>
-            <input type="text" value={extraLink} onChange={handleExtraLinkChange} placeholder="Ange en länk" />
+    {selectedPlan === 'price_1Pzz8VEGk7e8lKhxXF0u6GAo' && (
+      <div>
+        <label>Länk:</label>
+        <input type="text" value={extraLink} onChange={handleExtraLinkChange} placeholder="Ange en länk" />
+        <label>YouTube Länk:</label>
+            <input type="text" value={youtubeLink} onChange={handleYoutubeLinkChange} placeholder="Enter YouTube link" />
           </div>
-        )}
+      
+    )}
 
-          <button 
-          type="submit" 
-          disabled={selectedPlan === 'price_1Pzz6AEGk7e8lKhxEtq9m3Mc' && adCount >= 1}>
-          Skapa Annons
-        </button>
-      </form>
+    <button type="submit" disabled={selectedPlan === 'price_1Pzz6AEGk7e8lKhxEtq9m3Mc' && adCount >= 1}>
+      Skapa Annons
+    </button>
+  </form>
+</div>
     </>
   );
 };

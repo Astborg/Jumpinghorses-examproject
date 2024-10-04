@@ -1,0 +1,79 @@
+/* Styling the container for better layout */
+.subscription-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header styling */
+  .subscription-container h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Styling each plan option */
+  .subscription-container form div {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  /* Label styling */
+  .subscription-container label {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  /* Input (radio button) styling */
+  .subscription-container input[type="radio"] {
+    margin-right: 10px;
+  }
+  
+  /* Styling the subscribe button */
+  .subscription-container button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .subscription-container button:hover {
+    background-color: #218838;
+  }
+  
+  /* Styling for cancel section */
+  .subscription-container .cancel-section {
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .subscription-container .cancel-section input {
+    padding: 10px;
+    width: calc(100% - 24px);
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .subscription-container .cancel-section button {
+    background-color: #dc3545;
+  }
+  
+  .subscription-container .cancel-section button:hover {
+    background-color: #c82333;
+  }

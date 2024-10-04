@@ -1,0 +1,62 @@
+/* Main container for the homepage */
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('/images/horse-background.jpg'); /* Add a background image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 20px;
+  }
+  
+  /* Section that contains the welcome text */
+  .welcome-section {
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    text-align: center;
+    max-width: 600px;
+  }
+  
+  /* Headings styles */
+  .welcome-section h2 {
+    font-size: 36px;
+    color: #3a3a3a;
+    font-family: 'Playfair Display', serif; /* A stylish serif font */
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  
+  .welcome-section h3 {
+    font-size: 28px;
+    color: #4CAF50; /* Subheading in green */
+    font-family: 'Montserrat', sans-serif; /* Clean and modern sans-serif font */
+    margin-bottom: 15px;
+  }
+  
+  .welcome-section h4 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Button styling (if you want to add one later) */
+  .welcome-section button {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    transition: background-color 0.3s ease;
+  }
+  
+  .welcome-section button:hover {
+    background-color: #e68900;
+  }
