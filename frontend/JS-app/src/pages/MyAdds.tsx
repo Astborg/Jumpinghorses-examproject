@@ -29,7 +29,7 @@ const MyAds = () => {
     const fetchUserAds = async () => {
       if (user && isAuthenticated) {
         try {
-          const response = await axios.get('http://localhost:5000/my-ads', {
+          const response = await axios.get('http://localhost:5000/api/my-ads', {
             params: { email: user.email } // Skicka användarens e-post till backend
           });
           setAds(response.data); // Sätt annonserna i state

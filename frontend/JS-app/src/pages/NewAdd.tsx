@@ -50,7 +50,7 @@ const NewAd = () => {
       }));
 
       // Hämta användarens prenumerationsplan
-      axios.get('http://localhost:5000/user-plan', { params: { email: user.email } })
+      axios.get('http://localhost:5000/api/user-plan', { params: { email: user.email } })
         .then(response => setSelectedPlan(response.data.plan))
         .catch(error => console.error('Error fetching user plan:', error));
 
@@ -106,7 +106,7 @@ const NewAd = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/new-ad', data,{
+      const response = await axios.post('http://localhost:5000/api/new-ad', data,{
         headers: {
           'Content-Type': 'multipart/form-data'
         }

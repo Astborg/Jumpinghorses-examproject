@@ -21,7 +21,7 @@ export default function HeadLayout() {
   
             
             const response = await axios.get(
-              `http://localhost:5000/user-role?userEmail=${userEmail}`
+              `http://localhost:5000/api/user-role?userEmail=${userEmail}`
             );
   
             setUserRole(response.data.role); 

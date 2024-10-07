@@ -29,7 +29,7 @@ const Ad = () => {
   ; // Replace with your Google Maps API key
   useEffect(() => {
 
-    axios.get(`http://localhost:5000/ads/${id}`)
+    axios.get(`http://localhost:5000/api/ads/${id}`)
       .then(response => {
         setAd(response.data);
         geocodeCity(response.data.Stad); 

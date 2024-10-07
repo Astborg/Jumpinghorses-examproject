@@ -27,7 +27,7 @@ export default function Adds() {
 
     useEffect(() => {
         // Fetch ads from the backend
-        axios.get('http://localhost:5000/ads')
+        axios.get('http://localhost:5000/api/ads')
           .then(response => {
             setAds(response.data); // Set ads in the state
           })

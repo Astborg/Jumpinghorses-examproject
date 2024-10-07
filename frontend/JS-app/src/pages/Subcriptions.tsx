@@ -23,7 +23,7 @@ export default function Subscriptions() {
 
     console.log(stripe); 
     try {
-      const response = await axios.post('http://localhost:5000/create-checkout-session', {
+      const response = await axios.post('http://localhost:5000/api/create-checkout-session', {
         priceId: selectedPlan,  // Send the selected plan's Stripe price ID
         email: userEmail 
       
@@ -46,7 +46,7 @@ export default function Subscriptions() {
 
   const handleCancelSubscription = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/cancel-subscription', {
+      const response = await axios.post('http://localhost:5000/api/cancel-subscription', {
         stripeSubscriptionId: subscriptionId,
       });
       alert(response.data.message); // Visa ett meddelande om att prenumerationen har satts på att avbrytas
