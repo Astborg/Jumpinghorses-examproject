@@ -113,7 +113,26 @@ const NewAd = () => {
       });
       console.log('Annons sparad:', response.data);
       alert('Annons sparad!');
-      setAdCreated(true); // Sätter flaggan till true efter att annonsen har skapats
+      
+      setAdCreated(true); 
+      setFormData({
+        Rubrik: '',
+        Date: '',
+        Pris: '',
+        Beskrivning: '',
+        Gender: '',
+        Age: '',
+        Level: '',
+        Stad: '',
+        AntalVisitors: 0, 
+        Person_id: ''
+      });
+      
+      setSelectedFile(null);
+      setExtraLink('');
+      
+      // Omdirigera till Ads sidan
+      window.location.href = '/ads';
     } catch (error) {
       console.error('Fel vid inskickning av annons:', error);
       alert('Kunde inte spara annonsen. Försök igen.');
