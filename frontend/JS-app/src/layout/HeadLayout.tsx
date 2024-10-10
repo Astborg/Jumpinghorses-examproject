@@ -3,7 +3,6 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState, useRef  } from "react";
 import axios from "axios";
 import '../style/HeadLayout.css'
-import SaveUser from "../components/SaveUser";
 export default function HeadLayout() {
 
 
@@ -83,11 +82,11 @@ export default function HeadLayout() {
 
     {/* Logout button aligned to the right */}
     {isAuthenticated ? (
-      <button className="logout-button" onClick={() => logout({ returnTo: window.location.origin })}>
+      <button className="logout-button" onClick={() => logout({ logoutParams: { returnTo: 'http://localhost:5173' } })}>
         Logga ut
       </button>
     ) : (
-      <button className="login-button" onClick={() => loginWithRedirect({returnTo: 'http://localhost:5173' })}>
+      <button className="login-button" onClick={() => loginWithRedirect()}>
         Logga in
       </button>
     )}

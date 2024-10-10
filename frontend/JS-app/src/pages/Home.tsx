@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+
 import { useAuth0 } from '@auth0/auth0-react';
 
 
@@ -39,7 +39,7 @@ const Home = () => {
   }, [user, isAuthenticated]);
 
 
-  const handleLanguageChange = (e) => {
+  const handleLanguageChange = (e:any) => {
     const language = e.target.value;
     const googleTranslateElement = document.getElementById('google_translate_element');
 
