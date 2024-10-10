@@ -39,18 +39,6 @@ const Home = () => {
   }, [user, isAuthenticated]);
 
 
-  const handleLanguageChange = (e:any) => {
-    const language = e.target.value;
-    const googleTranslateElement = document.getElementById('google_translate_element');
-
-    if (googleTranslateElement) {
-      const selectElement = googleTranslateElement.querySelector('select');
-      if (selectElement) {
-        selectElement.value = language;
-        selectElement.dispatchEvent(new Event('change'));
-      }
-    }
-  }
     return (
         <>
 {(!userExist && isReady) && (

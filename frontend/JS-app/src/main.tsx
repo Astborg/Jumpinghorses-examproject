@@ -1,4 +1,4 @@
-import React from "react";
+
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './index.css'
@@ -12,7 +12,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import Ad from "./pages/Ad";
 import Success from "./pages/Success";
 import Layout from "./components/Layout";
-import SaveUser from "./components/SaveUser";
+
 
 
 

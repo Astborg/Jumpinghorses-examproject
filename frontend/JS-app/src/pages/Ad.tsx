@@ -73,7 +73,7 @@ if (!ad) {
 
 const youtubeID = ad.YoutubeLink ? extractYouTubeID(ad.YoutubeLink) : null;
 
-  const GOOGLE_MAPS_SECRETKEY = import.meta.env.SECRET_KEY
+  
   return (
     <>
    
