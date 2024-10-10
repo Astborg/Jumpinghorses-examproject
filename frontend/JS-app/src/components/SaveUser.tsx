@@ -9,7 +9,7 @@ const SaveUser = () => {
     const saveUserToDatabase = async () => {
       if (isAuthenticated && user) {
         try {
-          await axios.post("http://localhost:5000/api/save-user", {
+          await axios.post("https://jumpinghorses-examproject-1.onrender.com/api/save-user", {
             email: user.email,
             // eventuellt fler fält från user
           });

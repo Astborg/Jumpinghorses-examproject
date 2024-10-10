@@ -7,7 +7,7 @@ const ProtectedComponent = () => {
   const callProtectedAPI = async () => {
     const token = await getAccessTokenSilently();
 
-    const response = await fetch('http://localhost:5000/protected', {
+    const response = await fetch('https://jumpinghorses-examproject-1.onrender.com/protected', {
       headers: {
         Authorization: `Bearer ${token}`,
       },

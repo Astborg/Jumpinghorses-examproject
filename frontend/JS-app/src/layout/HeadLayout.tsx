@@ -20,7 +20,7 @@ export default function HeadLayout() {
   
             
             const response = await axios.get(
-              `http://localhost:5000/api/user-role?userEmail=${userEmail}`
+              `https://jumpinghorses-examproject-1.onrender.com/api/user-role?userEmail=${userEmail}`
             );
   
             setUserRole(response.data.role); 

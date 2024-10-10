@@ -29,7 +29,7 @@ const Ad = () => {
   ; // Replace with your Google Maps API key
   useEffect(() => {
 
-    axios.get(`http://localhost:5000/api/ads/${id}`)
+    axios.get(`https://jumpinghorses-examproject-1.onrender.com/api/ads/${id}`)
       .then(response => {
         setAd(response.data);
         geocodeCity(response.data.Stad); 
@@ -41,7 +41,7 @@ const Ad = () => {
 
   const geocodeCity = async (city: string) => {
     try {
-      const response = await axios.get(`http://localhost:5000/geocode?city=${encodeURIComponent(city)}`);
+      const response = await axios.get(`https://jumpinghorses-examproject-1.onrender.com/geocode?city=${encodeURIComponent(city)}`);
       if (response.data.results.length > 0) {
         const location = response.data.results[0].geometry.location;
         setCoordinates({ lat: location.lat, lng: location.lng });
@@ -94,7 +94,7 @@ const youtubeID = ad.YoutubeLink ? extractYouTubeID(ad.YoutubeLink) : null;
               )}
         {ad.Bild && (
               <img 
-                src={`http://localhost:5000/uploads/${ad.Bild}`}
+                src={`https://jumpinghorses-examproject-1.onrender.com/uploads/${ad.Bild}`}
                 className="ad-image"
                 
                 alt={ad.Rubrik}
