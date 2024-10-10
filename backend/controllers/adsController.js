@@ -59,8 +59,9 @@ const storage = multer.diskStorage({
   const upload = multer({ storage: storage });
 
 exports.newAd = (req, res) => {
-    const { Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, extraLink, youtubeLink  } = req.body;
+    const { Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, Person_id, extraLink, youtubeLink  } = req.body;
   const Bild = req.file ? req.file.filename : null;
+  const AntalVisitors = parseInt(req.body.AntalVisitors, 10);
   const Role = 'new'
   const sql = 'INSERT INTO Annons (Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild, Link, Role, YoutubeLink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
   const values = [Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild, extraLink, Role, youtubeLink];

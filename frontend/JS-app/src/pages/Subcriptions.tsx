@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import HeadLayout from '../layout/HeadLayout';
 import { loadStripe } from '@stripe/stripe-js';
 import { useAuth0 } from '@auth0/auth0-react';
 import '../style/Subscription.css'
@@ -19,7 +18,7 @@ export default function Subscriptions() {
   const { user } = useAuth0();
   const handleSubscribe = async () => {
     const stripe = await stripePromise; 
-    const userEmail = user.email; 
+    const userEmail = user?.email; 
 
     console.log(stripe); 
     try {
@@ -32,7 +31,7 @@ export default function Subscriptions() {
       const { id } = response.data;
       
       // Redirect the user to the Stripe Checkout page
-      await stripe.redirectToCheckout({
+      await stripe?.redirectToCheckout({
         sessionId: id,  // Pass the session ID from the backend
       });
     } catch (error) {

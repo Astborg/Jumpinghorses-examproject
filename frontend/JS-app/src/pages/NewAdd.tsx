@@ -44,7 +44,7 @@ const NewAd = () => {
   useEffect(() => {
     if (user && isAuthenticated) {
       // Sätt Person_id till användarens e-post eller annan unik identifierare
-      setFormData((prevData) => ({
+      setFormData((prevData:any) => ({
         ...prevData,
         Person_id: user.email // Ändra till en lämplig identifierare för Person_id
       }));
@@ -62,23 +62,23 @@ const NewAd = () => {
   }, [user, isAuthenticated]);
 
   console.log(formData.Person_id)
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:any) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = (e:any) => {
     setSelectedFile(e.target.files[0]);
   };
 
-  const handleExtraLinkChange = (e) => {
+  const handleExtraLinkChange = (e:any) => {
     setExtraLink(e.target.value);
   };
   const handleYoutubeLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setYoutubeLink(e.target.value); // Update YouTube link state
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     
     if (selectedPlan === 'price_1Pzz6AEGk7e8lKhxEtq9m3Mc' && adCreated) {
@@ -95,8 +95,9 @@ const NewAd = () => {
     data.append('Age', formData.Age);
     data.append('Level', formData.Level);
     data.append('Stad', formData.Stad);
-    data.append('AntalVisitors', formData.AntalVisitors);
     data.append('Person_id', formData.Person_id);
+    data.append('AntalVisitors', formData.AntalVisitors.toString());
+    
     if (selectedFile) {
       data.append('Bild', selectedFile);
     }
