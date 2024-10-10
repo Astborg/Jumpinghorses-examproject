@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import HeadLayout from '../layout/HeadLayout'
-import SaveUser from '../components/SaveUser'
+import  { useEffect, useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from "axios";
 
@@ -23,6 +21,8 @@ export default function Login() {
 
           
           setUserExist(response.data.email)
+          isReady
+          userExist
           setIsReady(true)
           console.log('användaren är:',response.data.email)
         } catch (error) {
