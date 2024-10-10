@@ -29,7 +29,7 @@ const MyAds = () => {
     const fetchUserAds = async () => {
       if (user && isAuthenticated) {
         try {
-          const response = await axios.get('https://jumpinghorses-examproject-1.onrender.com/api/my-ads', {
+          const response = await axios.get('https://jumpinghorses-examproject-3.onrender.com/api/my-ads', {
             params: { email: user.email } // Skicka användarens e-post till backend
           });
           setAds(response.data); // Sätt annonserna i state
@@ -61,7 +61,7 @@ return date.toLocaleDateString('sv-SE');  // Adjust to local time in Sweden (sv-
           <div key={ad._id} className="ad-item">
             <div className="ad-image-container">
               <img 
-                src={`https://jumpinghorses-examproject-1.onrender.com/uploads/${ad.Bild}`} 
+                src={`https://jumpinghorses-examproject-3.onrender.com/uploads/${ad.Bild}`} 
                 alt={ad.Rubrik}
                 className="ad-image"
               />
