@@ -10,7 +10,7 @@ const { runDailyJob } = require('./utils/cronJobs');
 const { expressjwt: jwt } = require('express-jwt'); 
 const jwksRsa = require('jwks-rsa');
 const axios = require('axios');
-const db = require('../config/db');
+const db = require('./config/db');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
