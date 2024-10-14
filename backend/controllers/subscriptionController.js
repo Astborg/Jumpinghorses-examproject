@@ -28,7 +28,7 @@ exports.createCheckoutSession = async (req, res) => {
             quantity: 1,
           },
         ],
-        success_url: 'https://jumpinghorses-examproject-alva-numtip99a-astborgs-projects.vercel.app/success',  // Redirect after success
+        success_url: 'https://jumpinghorses-examproject-alva.vercel.app/success',  // Redirect after success
         cancel_url: 'http://localhost:5000/cancel',  // Redirect if payment is canceled
       });
       

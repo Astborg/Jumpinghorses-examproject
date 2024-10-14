@@ -31,7 +31,7 @@ export default function Subscriptions() {
       const { id } = response.data;
       
       // Redirect the user to the Stripe Checkout page
-      await stripe?.redirectToCheckout({
+      await stripe.redirectToCheckout({
         sessionId: id,  // Pass the session ID from the backend
       });
     } catch (error) {
