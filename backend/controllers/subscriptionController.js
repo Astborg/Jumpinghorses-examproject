@@ -29,7 +29,7 @@ exports.createCheckoutSession = async (req, res) => {
           },
         ],
         success_url: 'https://jumpinghorses-examproject-alva.vercel.app',  // Redirect after success
-        cancel_url: 'http://localhost:5000/cancel',  // Redirect if payment is canceled
+        cancel_url: 'https://jumpinghorses-examproject-alva.vercel.app',  // Redirect if payment is canceled
       });
       
       res.json({ id: session.id });  // Send the session ID to the frontend
