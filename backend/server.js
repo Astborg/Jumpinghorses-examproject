@@ -71,6 +71,15 @@ app.get('/geocode', async (req, res) => {
   }
 });
 
+app.get('/test-db', async (req, res) => {
+  db.query('SELECT 1 + 1 AS solution', (error, results) => {
+    if (error) {
+      return res.status(500).send('Error connecting to the database');
+    }
+    res.json({ message: 'Database connection works', results });
+  });
+});
+
 
 // // require('dotenv').config();
 // // const express = require('express');
