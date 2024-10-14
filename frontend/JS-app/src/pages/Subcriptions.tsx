@@ -22,7 +22,7 @@ export default function Subscriptions() {
 
     console.log(stripe); 
     try {
-      const response = await axios.post('https://jumpinghorses-examproject-3.onrender.com/api/create-checkout-session', {
+      const response = await axios.post('https://jumpinghorses-examproject-4.onrender.com/api/create-checkout-session', {
         priceId: selectedPlan,  // Send the selected plan's Stripe price ID
         email: userEmail 
       
@@ -45,7 +45,7 @@ export default function Subscriptions() {
 
   const handleCancelSubscription = async () => {
     try {
-      const response = await axios.post('https://jumpinghorses-examproject-3.onrender.com/api/cancel-subscription', {
+      const response = await axios.post('https://jumpinghorses-examproject-4.onrender.com/api/cancel-subscription', {
         stripeSubscriptionId: subscriptionId,
       });
       alert(response.data.message); // Visa ett meddelande om att prenumerationen har satts på att avbrytas
