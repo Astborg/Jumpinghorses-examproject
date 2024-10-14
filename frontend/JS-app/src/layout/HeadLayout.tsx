@@ -82,7 +82,7 @@ export default function HeadLayout() {
 
     {/* Logout button aligned to the right */}
     {isAuthenticated ? (
-      <button className="logout-button" onClick={() => logout({ logoutParams: { returnTo: 'http://localhost:5173' } })}>
+      <button className="logout-button" onClick={() => logout({ logoutParams: { returnTo: 'https://jumpinghorses-examproject-alva.vercel.app/' } })}>
         Logga ut
       </button>
     ) : (
