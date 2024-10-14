@@ -18,6 +18,10 @@ export default function Subscriptions() {
   const { user } = useAuth0();
   const handleSubscribe = async () => {
     const stripe = await stripePromise; 
+    if (!stripe) {
+      console.error('Stripe has not been initialized.');
+      return;
+    }
     const userEmail = user?.email; 
 
     console.log(stripe); 
