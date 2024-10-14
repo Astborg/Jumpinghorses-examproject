@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware setup
 app.use(cors({
-  origin: 'https://jumpinghorses-examproject-alva.vercel.app/',
+  origin: 'https://jumpinghorses-examproject-alva.vercel.app',
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
