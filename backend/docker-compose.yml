@@ -7,7 +7,7 @@ services:
       - ./db_data:/var/www/mysql
     restart: always
     ports:
-      - 3306:3306
+      - 3307:3306
       - 33061:33060
     environment:
       MYSQL_ROOT_PASSWORD: notSecureChangeMe
