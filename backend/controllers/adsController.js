@@ -3,7 +3,7 @@ const multer = require('multer'); // Middleware för filuppladdning
 const path = require('path');
 
 exports.getAllAds = (req, res) => {
-  const sql = 'SELECT * FROM Annons WHERE ROLE = "new"';
+  const sql = "SELECT * FROM Annons WHERE ROLE = 'new'";
   db.query(sql, (error, results) => {
     if (error) {
       return res.status(500).send('Error retrieving ads');
