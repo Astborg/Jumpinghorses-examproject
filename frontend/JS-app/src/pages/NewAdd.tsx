@@ -55,7 +55,7 @@ const NewAd = () => {
         .catch(error => console.error('Error fetching user plan:', error));
 
       // Hämta antal annonser skapade av användaren
-      axios.get('https://jumpinghorses-examproject-4.onrender.com/ad-count', { params: { personId: user.email } }) // Ändra till korrekt personId
+      axios.get('https://jumpinghorses-examproject-4.onrender.com/api/ad-count', { params: { personId: user.email } }) // Ändra till korrekt personId
         .then(response => setAdCount(response.data.adCount))
         .catch(error => console.error('Error fetching ad count:', error));
     }
