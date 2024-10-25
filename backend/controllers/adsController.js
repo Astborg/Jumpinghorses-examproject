@@ -29,26 +29,9 @@ exports.getAdById = (req, res) => {
   });
 };
 
-// exports.createAd = (req, res) => {
-//   const { Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, extraLink, youtubeLink } = req.body;
-//   const Bild = req.file ? req.file.filename : null;
-//   const Role = 'new';
-  
-//   const sql = 'INSERT INTO Annons (Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild, Link, Role, YoutubeLink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-//   const values = [Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild, extraLink, Role, youtubeLink];
-  
-//   db.query(sql, values, (err, result) => {
-//     if (err) {
-//       console.error('Error saving ad:', err);
-//       return res.status(500).send('Error saving ad');
-//     }
-//     res.status(200).send('Ad saved successfully');
-//   });
-// };
-
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, 'uploads/'); // Se till att denna sökväg är korrekt
+      cb(null, '../uploads/'); // Se till att denna sökväg är korrekt
     },
     filename: (req, file, cb) => {
       cb(null, Date.now() + path.extname(file.originalname)); // Skapar ett unikt filnamn
