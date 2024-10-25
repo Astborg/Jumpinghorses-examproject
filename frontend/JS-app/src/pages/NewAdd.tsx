@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 import '../style/NewAd.css'
@@ -11,7 +12,7 @@ const NewAd = () => {
   const [extraLink, setExtraLink] = useState(''); // Håller reda på extra fält för länken
   const [adCount, setAdCount] = useState(0);  
   const [youtubeLink, setYoutubeLink] = useState('');
-
+  const navigate = useNavigate();
   // useEffect(() => {
   //   const fetchUserPlan = async () => {
   //     if (user && isAuthenticated) {
@@ -133,7 +134,8 @@ const NewAd = () => {
       setExtraLink('');
       
       // Omdirigera till Ads sidan
-      window.location.href = 'https://jumpinghorses-examproject-alva.vercel.app/ads';
+      navigate('/ads'); 
+      // window.location.href = 'https://jumpinghorses-examproject-alva.vercel.app/ads';
     } catch (error) {
       console.error('Fel vid inskickning av annons:', error);
       alert('Kunde inte spara annonsen. Försök igen.');
