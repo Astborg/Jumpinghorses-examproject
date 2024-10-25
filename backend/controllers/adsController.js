@@ -31,7 +31,7 @@ exports.getAdById = (req, res) => {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, '../uploads/'); // Se till att denna sökväg är korrekt
+      cb(null, './uploads/'); // Se till att denna sökväg är korrekt
     },
     filename: (req, file, cb) => {
       cb(null, Date.now() + path.extname(file.originalname)); // Skapar ett unikt filnamn
