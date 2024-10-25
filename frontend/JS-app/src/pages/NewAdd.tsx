@@ -133,7 +133,7 @@ const NewAd = () => {
       setExtraLink('');
       
       // Omdirigera till Ads sidan
-      window.location.href = '/ads';
+      window.location.href = 'https://jumpinghorses-examproject-alva.vercel.app/ads';
     } catch (error) {
       console.error('Fel vid inskickning av annons:', error);
       alert('Kunde inte spara annonsen. Försök igen.');
