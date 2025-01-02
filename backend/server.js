@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
   origin: 'https://jumpinghorses-examproject-alva.vercel.app',
 }));
-app.use(express.json());
+// app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const checkJwt = jwt({
