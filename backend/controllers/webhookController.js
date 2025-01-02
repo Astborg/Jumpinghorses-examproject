@@ -4,7 +4,7 @@ const db = require('../config/db');
 const endpointSecret = 'whsec_0C1DbrACvHiCTcFk3VkyjbEibg62Ntl7';
 exports.handleWebhook = (req, res) => {
   const sig = req.headers['stripe-signature'];
-  let event = req.body;
+  let event;
 
   try {
     // Construct the event using the raw body and signature
