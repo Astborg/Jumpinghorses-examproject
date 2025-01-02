@@ -18,6 +18,9 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
   origin: 'https://jumpinghorses-examproject-alva.vercel.app',
 }));
+
+app.use('/api', webhookRoutes);         // Stripe webhook routes for handling subscription events
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -45,7 +48,6 @@ app.use('/uploads', express.static('uploads'));
 app.use('/api', adsRoutes);             // All ad-related routes
 app.use('/api', userRoutes);            // User-related routes (e.g. get user role)
 app.use('/api', subscriptionRoutes);    // Subscription management routes (e.g. Stripe integration)
-app.use('/api', webhookRoutes);         // Stripe webhook routes for handling subscription events
 
 // Start cron jobs for automated tasks (like marking ads as old)
 runDailyJob();
