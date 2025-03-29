@@ -26,7 +26,7 @@ export default function Adds() {
 
     useEffect(() => {
         // Fetch ads from the backend
-        axios.get('https://jumpinghorses-examproject-4.onrender.com/api/ads')
+        axios.get('http://localhost:5001/api/ads')
           .then(response => {
             setAds(response.data); // Set ads in the state
           })
@@ -125,7 +125,7 @@ export default function Adds() {
               <p><strong>City:</strong> {ad.Stad}</p>
               {ad.Bild && (
               <img 
-                src={`https://jumpinghorses-examproject-4.onrender.com/uploads/${ad.Bild}`}
+                src={`http://localhost:5001/uploads/${ad.Bild}`}
                 className="ad-image2"
                 alt={ad.Rubrik}
               />

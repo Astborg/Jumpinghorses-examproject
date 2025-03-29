@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware setup
 app.use(cors({
-  origin: 'https://jumpinghorses-examproject-alva.vercel.app',
+  origin: 'http://localhost:5173',
 }));
 
 app.use('/api', webhookRoutes);         // Stripe webhook routes for handling subscription events

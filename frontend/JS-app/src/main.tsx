@@ -67,7 +67,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         clientId="1KJEmXaQwWpBo9yl6r0pNY379JsVDsc3"
         authorizationParams={{
            audience: 'https://dev-750v23phcwvolq52.us.auth0.com/api/v2/',
-          redirect_uri: "https://jumpinghorses-examproject-alva.vercel.app/"
+          redirect_uri: "http://localhost:5173"
         }}
         cacheLocation="localstorage" 
   >

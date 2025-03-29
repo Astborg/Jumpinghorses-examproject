@@ -51,12 +51,12 @@ const NewAd = () => {
       }));
 
       // Hämta användarens prenumerationsplan
-      axios.get('https://jumpinghorses-examproject-4.onrender.com/api/user-plan', { params: { email: user.email } })
+      axios.get('http://localhost:5001/api/user-plan', { params: { email: user.email } })
         .then(response => setSelectedPlan(response.data.plan))
         .catch(error => console.error('Error fetching user plan:', error));
 
       // Hämta antal annonser skapade av användaren
-      axios.get('https://jumpinghorses-examproject-4.onrender.com/api/ad-count', { params: { personId: user.email } }) // Ändra till korrekt personId
+      axios.get('http://localhost:5001/api/ad-count', { params: { personId: user.email } }) // Ändra till korrekt personId
         .then(response => setAdCount(response.data.adCount))
         .catch(error => console.error('Error fetching ad count:', error));
     }
@@ -108,7 +108,7 @@ const NewAd = () => {
     }
 
     try {
-      const response = await axios.post('https://jumpinghorses-examproject-4.onrender.com/api/new-ad', data,{
+      const response = await axios.post('http://localhost:5001/api/new-ad', data,{
         headers: {
           'Content-Type': 'multipart/form-data'
         }

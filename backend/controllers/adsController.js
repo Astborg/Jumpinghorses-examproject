@@ -103,3 +103,43 @@ WHERE Person_id IN (SELECT Email FROM Person WHERE Email = ?)
     });
 
 }
+
+exports.updateAd = (req, res) => {
+   
+  const { _id, Rubrik, Pris, Beskrivning, Gender, Age, Level, Stad, Link, YoutubeLink, Role } = req.body; // Data från frontend
+
+  const sql = `
+      UPDATE Annons 
+      SET Rubrik = ?, Pris = ?, Beskrivning = ?, Gender = ?, Age = ?, Level = ?, Stad = ?, Link = ?, YoutubeLink = ?, Role = ?
+      WHERE _id = ?
+  `;
+
+  const values = [Rubrik, Pris, Beskrivning, Gender, Age, Level, Stad, Link, YoutubeLink, Role, _id];
+
+  db.query(sql, values, (err, result) => {
+      if (err) {
+          console.error('Error updating ad:', err);
+          return res.status(500).send('Error updating ad');
+      }
+      res.status(200).send('Ad updated successfully');
+  });
+};
+
+exports.deleteAd = (req, res) => {
+  const { _id } = req.body; // Hämtar ID från body, inte URL
+
+  const sql = 'DELETE FROM Annons WHERE _id = ?';
+
+  db.query(sql, [_id], (err, result) => {
+    if (err) {
+      console.error('Error deleting ad:', err);
+      return res.status(500).send('Error deleting ad');
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).send('Ad not found');
+    }
+
+    res.status(200).send('Ad deleted successfully');
+  });
+};

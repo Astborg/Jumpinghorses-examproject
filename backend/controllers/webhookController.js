@@ -1,7 +1,8 @@
-const stripe = require('stripe')('sk_test_51P1AxTEGk7e8lKhx7d8y2sc3geuObxXKTbjWemfNXaEJosBs8fj1EmLxuveN4JeWHwM3VrPxLm8mqgc9XTjisWE900uDyo1qYN');
+const stripe = require('stripe')('sk_test_51P1AxTEGk7e8lKhxFG1VaVwACUidkpPuSKGvy8cXtPY4rWFsYgeWLgdCJd8iyzx69pxr4GvRu5NayG1xldJreQhf00xFHcDT3s');
 const db = require('../config/db');
 
-const endpointSecret = 'whsec_0C1DbrACvHiCTcFk3VkyjbEibg62Ntl7';
+const endpointSecret = 'whsec_9cb9ee33b209dd6195fcf89af36cd06c3f2681f1753b955b85038676c226e49c';
+// whsec_0C1DbrACvHiCTcFk3VkyjbEibg62Ntl7
 exports.handleWebhook = (req, res) => {
   const sig = req.headers['stripe-signature'];
   let event;

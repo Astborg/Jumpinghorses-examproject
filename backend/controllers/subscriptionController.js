@@ -1,4 +1,4 @@
-const stripe = require('stripe')('sk_test_51P1AxTEGk7e8lKhx7d8y2sc3geuObxXKTbjWemfNXaEJosBs8fj1EmLxuveN4JeWHwM3VrPxLm8mqgc9XTjisWE900uDyo1qYN');
+const stripe = require('stripe')('sk_test_51P1AxTEGk7e8lKhxFG1VaVwACUidkpPuSKGvy8cXtPY4rWFsYgeWLgdCJd8iyzx69pxr4GvRu5NayG1xldJreQhf00xFHcDT3s');
 const db = require('../config/db');
 
 exports.createCheckoutSession = async (req, res) => {
@@ -28,8 +28,8 @@ exports.createCheckoutSession = async (req, res) => {
             quantity: 1,
           },
         ],
-        success_url: 'https://jumpinghorses-examproject-alva.vercel.app',  // Redirect after success
-        cancel_url: 'https://jumpinghorses-examproject-alva.vercel.app',  // Redirect if payment is canceled
+        success_url: 'http://localhost:5173',  // Redirect after success
+        cancel_url: 'http://localhost:5173',  // Redirect if payment is canceled
       });
       
       res.json({ id: session.id });  // Send the session ID to the frontend

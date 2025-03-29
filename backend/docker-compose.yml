@@ -1,16 +1,43 @@
+# version: "3.1"
+
+# services:
+#   db:
+#     image: mariadb:10.6
+#     volumes:
+#       - /var/lib/docker/volumes/3c8233eb7febf9378666f5a2cf34d5d8c1440468949fcc0a11ea3efc85a91fa8/_data:/var/lib/mysql
+#     restart: always
+#     ports:
+#       - 3306:3306
+#       - 33061:33060
+#     environment:
+#       MYSQL_ROOT_PASSWORD: notSecureChangeMe
+#   phpmyadmin:
+#     depends_on:
+#       - db
+#     image: phpmyadmin
+#     restart: always
+#     ports:
+#       - 8081:80
+#     environment:
+#       PMA_HOST: db
+#       MYSQL_ROOT_PASSWORD: notSecureChangeMe
+
 version: "3.1"
 
 services:
   db:
     image: mariadb:10.6
     volumes:
-      - ./db_data:/var/www/mysql
+      - /var/lib/docker/volumes/3c8233eb7febf9378666f5a2cf34d5d8c1440468949fcc0a11ea3efc85a91fa8/_data:/var/lib/mysql
     restart: always
     ports:
-      - 3307:3306
+      - 3306:3306
       - 33061:33060
     environment:
       MYSQL_ROOT_PASSWORD: notSecureChangeMe
+    networks:
+      - my_network
+
   phpmyadmin:
     depends_on:
       - db
@@ -21,3 +48,25 @@ services:
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: notSecureChangeMe
+    networks:
+      - my_network
+
+  backend:
+    build: ./  # This assumes your backend Dockerfile is in the ./backend directory
+    ports:
+      - "5001:5000"
+    environment:
+      DB_HOST: db  # Database hostname in the Docker network
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: notSecureChangeMe
+      DB_NAME: JS  # Your database name
+    depends_on:
+      - db
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
+    
