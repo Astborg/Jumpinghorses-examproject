@@ -6,7 +6,7 @@ exports.runDailyJob = () => {
     console.log('Cron job is running every 5 minutes');
 
     
-    const sql = "UPDATE Annons SET Role = 'old' WHERE Date < (CURDATE() - INTERVAL 7 DAY)";
+    const sql = "UPDATE Annons SET Role = 'old' WHERE Date < (CURDATE() - INTERVAL 30 DAY)";
     console.log(`Running SQL: ${sql}`);
     db.query(sql, (err, result) => {
       if (err) {

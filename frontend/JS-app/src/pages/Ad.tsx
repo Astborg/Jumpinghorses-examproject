@@ -7,6 +7,7 @@ import '../style/Ad.css'
 interface Ad {
   _id: number;
   Rubrik: string;
+  Storlek: string,
   Beskrivning: string;
   Pris: number;
   AntalVisitors: number;
@@ -15,10 +16,14 @@ interface Ad {
   Person_id: string;
   Gender: string;
   Age: string;
+  Height: string;
+  Far: string,
+  Morfar: string, 
   Date: string;  
   Level: string;
   Link: string;
   YoutubeLink?: string; 
+  Röntgen: string;
 }
 
 const Ad = () => {
@@ -79,19 +84,11 @@ const youtubeID = ad.YoutubeLink ? extractYouTubeID(ad.YoutubeLink) : null;
    
     
     <div className="ad-container">
-      <div className="ad-details">
-      <p><strong>Date:</strong> {convertToLocalDate(ad.Date)}</p>
+      <div className="ad-details2">
+      <p><strong>Datum:</strong> {convertToLocalDate(ad.Date)}</p>
         <h1 className="ad-title">{ad.Rubrik}</h1>
-        <p className="ad-description">{ad.Beskrivning}</p>
-        <p><strong>Gender:</strong> {ad.Gender}</p>
-        <p><strong>Level:</strong> {ad.Level}</p>
-        <p><strong>Age:</strong> {ad.Age}</p>
-        <p className="ad-price"><strong>Price:</strong> {ad.Pris} SEK</p>
-        <p className="ad-visitors"><strong>Visitors:</strong> {ad.AntalVisitors}</p>
-        <p><strong>Contact:</strong> {ad.Person_id}</p>
-        {ad.Link && (
-                <p className="ad-link"><strong>Companylink:</strong> <a href={ad.Link} target="_blank" rel="noopener noreferrer">{ad.Link}</a></p>
-              )}
+        <div className="ad-flex-box">
+        <div className="ad-image-container">
         {ad.Bild && (
               <img 
                 src={`http://localhost:5001/uploads/${ad.Bild}`}
@@ -100,8 +97,27 @@ const youtubeID = ad.YoutubeLink ? extractYouTubeID(ad.YoutubeLink) : null;
                 alt={ad.Rubrik}
               />
             )}
+          </div>
+          <div className="ad-details3">
+        <p><strong>Storlek:</strong> {ad.Storlek}</p>
+        <p><strong>Kön:</strong> {ad.Gender}</p>
+        <p><strong>Nivå:</strong> {ad.Level}</p>
+        <p><strong>Ålder:</strong> {ad.Age} år</p>
+        <p><strong>Mankhöjd:</strong> {ad.Height} cm</p>
+        <p><strong>Far:</strong> {ad.Far}</p>
+        <p><strong>Morfar:</strong> {ad.Morfar}</p>
+        <p><strong>Senaste röntgen:</strong> {ad.Röntgen}</p>
+        <p><strong>Price:</strong> {ad.Pris} SEK</p>
+        <p><strong>Visitors:</strong> {ad.AntalVisitors}</p>
+        </div>
+        </div>
+        <p><strong>Contact:</strong> {ad.Person_id}</p>
+        {ad.Link && (
+                <p className="ad-link"><strong>Companylink:</strong> <a href={ad.Link} target="_blank" rel="noopener noreferrer">{ad.Link}</a></p>
+              )}
+        
              {youtubeID && (
-          <div className="youtube-video">
+          <div className="ad-image-container">
             <iframe
               width="560"
               height="315"
@@ -113,6 +129,7 @@ const youtubeID = ad.YoutubeLink ? extractYouTubeID(ad.YoutubeLink) : null;
             ></iframe>
           </div>
         )}
+        <p className="ad-description">{ad.Beskrivning}</p>
         <p className="ad-city"><strong>City:</strong> {ad.Stad}</p>
       </div>
       {coordinates && (

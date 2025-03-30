@@ -46,13 +46,12 @@ const Home = () => {
     )}
 <div className="home-container">
   <div className="welcome-section">
-    <h2>Welcome to JumpingHorses.se</h2>
-    <h3>Your Horse Ad site only for Jumpinghorses!</h3>
-    <h4>Click on the Log in button to Login or sign up to see all Ads</h4>
-    <h4>After that you can make a subscription to create new Ads</h4>
-    <h4>Go under MyAds to see all of your own Ads</h4>
-    <h4>Under every Ad your can press Read More to see full information</h4>
-    <h4>You can choose which language you want to translate the website at the bottom of the page</h4>
+    <h2>Välkommen till Jumpinghorses.se</h2>
+    <h3>Din annonsplattform enbart för hopphästar och hoppponnyer</h3>
+    <h4>Du kan se alla annonser</h4>
+    <h4>För att skapa ny annons vänligen logga in och skapa ett abonnemang</h4>
+    <h4>Under mina annonser kan du se dina egna nya och gamla annonser</h4>
+    <h4>You can choose language at the botton of the page</h4>
   </div>
 </div>
 

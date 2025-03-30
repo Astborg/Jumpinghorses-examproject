@@ -6,14 +6,19 @@ import '../style/MyAds.css'
 
 interface Ad {
   _id: number;
+  Storlek: string, 
   Rubrik: string;
   Date: string;
   Pris: string;
   Beskrivning: string;
   Gender: string;
   Age: string;
+  Height: string, 
+  Far: string,
+  Morfar: string, 
   Level: string;
   Stad: string;
+  Xray: string, 
   AntalVisitors: number;
   Person_id: number;
   Bild: string;
@@ -86,7 +91,7 @@ return date.toLocaleDateString('sv-SE');  // Adjust to local time in Sweden (sv-
     <div className="myads-container">
     <h2 className="myads-heading">Mina Annonser</h2>
     {ads.length > 0 ? (
-      <div className="ads-list">
+      <div className="ads-list2">
         {ads.map(ad => (
           <div key={ad._id} className="ad-item">
             <div className="ad-image-container">
@@ -97,15 +102,21 @@ return date.toLocaleDateString('sv-SE');  // Adjust to local time in Sweden (sv-
               />
             </div>
             <div className="ad-details">
+            <p className="ad-description">Storlek: {ad.Storlek}</p>
               <h3 className="ad-title">{ad.Rubrik}</h3>
               <p className="ad-description">Status: {ad.Role}</p>
               <p className="ad-description">{ad.Beskrivning}</p>
               <p>Gender: {ad.Gender}</p>
               <p>Level: {ad.Level}</p>
               <p>Age: {ad.Age}</p>
+              <p>Height: {ad.Height}</p>
+              <p>Far: {ad.Far}</p>
+              <p>Morfar: {ad.Morfar}</p>
               <p className="ad-price">Pris: {ad.Pris} SEK</p>
               <p className="ad-date">Datum: {convertToLocalDate(ad.Date)}</p>
               <p className="ad-city">Stad: {ad.Stad}</p>
+              <p className="ad-xray">Senaste Röntgen: {ad.Xray}</p>
+
               {ad.Link && (
                 <p className="ad-link">FöretagsLänk: <a href={ad.Link} target="_blank" rel="noopener noreferrer">{ad.Link}</a></p>
               )}
@@ -124,15 +135,27 @@ return date.toLocaleDateString('sv-SE');  // Adjust to local time in Sweden (sv-
     {editAd && (
         <div className="edit-form">
           <h2>Redigera annons</h2>
-          <input type="text" value={editAd.Rubrik} onChange={e => setEditAd({ ...editAd, Rubrik: e.target.value })} />
-          <input type="text" value={editAd.Pris} onChange={e => setEditAd({ ...editAd, Pris: e.target.value })} />
-          <textarea value={editAd.Beskrivning} onChange={e => setEditAd({ ...editAd, Beskrivning: e.target.value })} />
-          <input type="text" value={editAd.Age} onChange={e => setEditAd({ ...editAd, Age: e.target.value })} />
-          <input type="text" value={editAd.Gender} onChange={e => setEditAd({ ...editAd, Gender: e.target.value })} />
-          <input type="text" value={editAd.Level} onChange={e => setEditAd({ ...editAd, Level: e.target.value })} />
-          <input type="text" value={editAd.Stad} onChange={e => setEditAd({ ...editAd, Stad: e.target.value })} />
-          <input type="text" value={editAd.Link} onChange={e => setEditAd({ ...editAd, Link: e.target.value })} />
-          <input type="text" value={editAd.YoutubeLink} onChange={e => setEditAd({ ...editAd, YoutubeLink: e.target.value })} />
+          <select value={editAd.Storlek} onChange={e => setEditAd({ ...editAd, Storlek: e.target.value })} >
+            <option value="A-ponny">A-ponny</option>
+            <option value="B-ponny">B-ponny</option>
+            <option value="C-ponny">C-ponny</option>
+            <option value="D-ponny">D-ponny</option>
+            <option value="Häst">Häst</option>
+            </select>
+          <input type="text" placeholder="Rubrik" value={editAd.Rubrik} onChange={e => setEditAd({ ...editAd, Rubrik: e.target.value })} />
+          <input type="text" placeholder="Pris" value={editAd.Pris} onChange={e => setEditAd({ ...editAd, Pris: e.target.value })} />
+          <textarea placeholder="Beskrivning" value={editAd.Beskrivning} onChange={e => setEditAd({ ...editAd, Beskrivning: e.target.value })} />
+          <input type="text" placeholder="Ålder" value={editAd.Age} onChange={e => setEditAd({ ...editAd, Age: e.target.value })} />
+          <input type="text" placeholder="Mankhöjd" value={editAd.Height} onChange={e => setEditAd({ ...editAd, Height: e.target.value })} />
+          <input type="text" placeholder="Far" value={editAd.Far} onChange={e => setEditAd({ ...editAd, Far: e.target.value })} />
+          <input type="text" placeholder="Morfar" value={editAd.Morfar} onChange={e => setEditAd({ ...editAd, Morfar: e.target.value })} />
+          <input type="text" placeholder="Kön" value={editAd.Gender} onChange={e => setEditAd({ ...editAd, Gender: e.target.value })} />
+          <input type="text" placeholder="Nivå" value={editAd.Level} onChange={e => setEditAd({ ...editAd, Level: e.target.value })} />
+          <input type="text" placeholder="Stad" value={editAd.Stad} onChange={e => setEditAd({ ...editAd, Stad: e.target.value })} />
+          <label htmlFor=""><small>Senaste röntgen:</small></label>
+          <input type="date" placeholder="Röntgen" value={editAd.Xray} onChange={e => setEditAd({ ...editAd, Xray: e.target.value })} />
+          <input type="text" placeholder="Företagslänk" value={editAd.Link} onChange={e => setEditAd({ ...editAd, Link: e.target.value })} />
+          <input type="text" placeholder="Youtubelänk" value={editAd.YoutubeLink} onChange={e => setEditAd({ ...editAd, YoutubeLink: e.target.value })} />
           <button onClick={handleEdit}>Spara ändringar</button>
           <button onClick={() => setEditAd(null)}>Avbryt</button>
         </div>

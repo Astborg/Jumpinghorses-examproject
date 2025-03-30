@@ -40,14 +40,15 @@ const storage = multer.diskStorage({
   
   
   const upload = multer({ storage: storage });
-
+  
 exports.newAd = (req, res) => {
-    const { Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, Person_id, extraLink, youtubeLink  } = req.body;
+  console.log("Inkommande request body:", req.body);
+    const { Rubrik, Storlek, Date, Pris, Beskrivning, Gender, Age, Height, Far, Morfar, Level, Stad, Xray, Person_id, extraLink, youtubeLink  } = req.body;
   const Bild = req.file ? req.file.filename : null;
   const AntalVisitors = parseInt(req.body.AntalVisitors, 10);
   const Role = 'new'
-  const sql = 'INSERT INTO Annons (Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild, Link, Role, YoutubeLink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-  const values = [Rubrik, Date, Pris, Beskrivning, Gender, Age, Level, Stad, AntalVisitors, Person_id, Bild, extraLink, Role, youtubeLink];
+  const sql = 'INSERT INTO Annons (Rubrik, Storlek, Date, Pris, Beskrivning, Gender, Age, Height, Far, Morfar, Level, Stad, Xray, AntalVisitors, Person_id, Bild, Link, Role, YoutubeLink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const values = [Rubrik, Storlek, Date, Pris, Beskrivning, Gender, Age, Height, Far, Morfar, Level, Stad, Xray, AntalVisitors, Person_id, Bild, extraLink, Role, youtubeLink];
 
   db.query(sql, values, (err, result) => {
     if (err) {
@@ -106,15 +107,15 @@ WHERE Person_id IN (SELECT Email FROM Person WHERE Email = ?)
 
 exports.updateAd = (req, res) => {
    
-  const { _id, Rubrik, Pris, Beskrivning, Gender, Age, Level, Stad, Link, YoutubeLink, Role } = req.body; // Data från frontend
+  const { _id, Rubrik, Storlek, Pris, Beskrivning, Gender, Age, Height, Far, Morfar, Level, Stad, Xray, Link, YoutubeLink, Role } = req.body; // Data från frontend
 
   const sql = `
       UPDATE Annons 
-      SET Rubrik = ?, Pris = ?, Beskrivning = ?, Gender = ?, Age = ?, Level = ?, Stad = ?, Link = ?, YoutubeLink = ?, Role = ?
+      SET Rubrik = ?, Storlek = ?, Pris = ?, Beskrivning = ?, Gender = ?, Age = ?, Height = ?, Far = ?, Morfar = ?, Level = ?, Stad = ?, Xray = ?, Link = ?, YoutubeLink = ?, Role = ?
       WHERE _id = ?
   `;
 
-  const values = [Rubrik, Pris, Beskrivning, Gender, Age, Level, Stad, Link, YoutubeLink, Role, _id];
+  const values = [Rubrik, Storlek, Pris, Beskrivning, Gender, Age, Height, Far, Morfar, Level, Stad, Xray, Link, YoutubeLink, Role, _id];
 
   db.query(sql, values, (err, result) => {
       if (err) {

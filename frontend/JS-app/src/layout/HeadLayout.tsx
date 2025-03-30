@@ -36,26 +36,6 @@ export default function HeadLayout() {
       fetchRole();
     }, [user, isAuthenticated]);
 
-    // const saveUserToDatabase = async (user:any) => {
-    //   try {
-    //     await axios.post("http://localhost:5000/save-user", {
-    //       email: user.email,
-          
-          
-          
-    //     });
-    //   } catch (error) {
-    //     console.error("Error saving user to the database", error);
-    //   }
-    // };
-
-    // useEffect(() => {
-    //   if (isAuthenticated && user) {
-    //     console.log("Saving user to the database");
-    //     saveUserToDatabase(user);
-       
-    //   }
-    // }, [isAuthenticated, user]);
 
     if (isLoading) {
         return <div>Loading...</div>; 
@@ -66,16 +46,17 @@ export default function HeadLayout() {
     <header className="header">
   <nav className="nav-container">
     <ul className="nav-links">
-      <li><Link to='/'>Home</Link></li>
+      <li><Link to='/'>Hem</Link></li>
+      <li><Link to='/ads'>Annonser</Link></li>
+
       {isAuthenticated && (<>
-        <li><Link to='/ads'>Ads</Link></li>
-      <li><Link to='/subscription'>Subscription</Link></li></>
+      <li><Link to='/subscription'>Abonnemang</Link></li></>
     )}
       
       {userRole === 'subscriber' && (
         <>
-          <li><Link to='/newad'>New Ad</Link></li>
-          <li><Link to='/myads'>My Ads</Link></li>
+          <li><Link to='/newad'>Lägg till Annons</Link></li>
+          <li><Link to='/myads'>Mina Annonser</Link></li>
         </>
       )}
     </ul>

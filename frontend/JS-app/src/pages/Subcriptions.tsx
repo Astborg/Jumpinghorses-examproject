@@ -63,8 +63,8 @@ export default function Subscriptions() {
     <>
     
     <div className="subscription-container">
-      <h2>Select Your Subscription</h2>
-      <h5>You can cancel at anytime and also upgrade to a new subsription at anytime</h5>
+      <h2>Välj ditt abonnemang</h2>
+      <h5>Gäller 30 dagar annonsplats</h5>
       <form>
         <div>
           <label>
@@ -74,7 +74,7 @@ export default function Subscriptions() {
               checked={selectedPlan === 'price_1Pzz6AEGk7e8lKhxEtq9m3Mc'}
               onChange={handleSubscriptionChange}
             />
-            Bronze Plan - One ad only, 1 week
+            Bronze Plan - 1 Annons + 10 Bilder + 10 Youtubefilmer
           </label>
         </div>
         <div>
@@ -85,7 +85,7 @@ export default function Subscriptions() {
               checked={selectedPlan === 'price_1Pzz7LEGk7e8lKhxOfaEiyJI'}
               onChange={handleSubscriptionChange}
             />
-            Silver Plan - Unlimited ads, 1 week
+            Silver Plan - Fritt antal Annonser + 10 Bilder + 10 Youtubefilmer
           </label>
         </div>
         <div>
@@ -96,21 +96,21 @@ export default function Subscriptions() {
               checked={selectedPlan === 'price_1Pzz8VEGk7e8lKhxXF0u6GAo'}
               onChange={handleSubscriptionChange}
             />
-            Gold Plan - Unlimited ads, 1 week, + extra company link + youtubelink to your video
+            Gold Plan - Fritt antal Annonser + 10 Bilder + 10 Youtubefilmer + Extra länk
           </label>
         </div>
-        <button type="button" onClick={handleSubscribe}>Subscribe</button>
+        <button type="button" onClick={handleSubscribe}>Skapa Abonnnemang</button>
       </form>
       
       <div className="cancel-section">
-        <h2>Cancel Subscription</h2>
+        <h2>Avsluta Abonnemang</h2>
         <input
           type="text"
           value={subscriptionId}
           onChange={handleInputChange}
-          placeholder="Enter Stripe Subscription ID"
+          placeholder="Klistra in ditt Subscription ID du fått i välkomsmailet"
         />
-        <button onClick={handleCancelSubscription}>Cancel Subscription</button>
+        <button onClick={handleCancelSubscription}>Avsluta Abonnemang</button>
       </div>
     </div>
     </>
